@@ -1,0 +1,26 @@
+<app-header-front> </app-header-front>
+
+<div class="task-container">
+  <div *ngFor="let task of goals" class="task">
+    <details open [ngClass]="{'active-goal': isActiveGoal(task.endDate), 'inactive-goal': !isActiveGoal(task.endDate)}">
+      <summary>{{task.name}}</summary>
+
+      <!-- Loop through the goals of the task -->
+      <div *ngFor="let goal of task.goals">
+        <details open>
+          <summary>{{goal.title}} 
+             <span *ngIf="goal.starDate && goal.endDate" class="duration">
+              {{calculateDuration(goal.starDate, goal.endDate)}}
+            </span> 
+
+          </summary>
+          <ul>
+            <li><span>Description:</span> {{goal.description}}</li>
+            <li><span>Start Date:</span> {{formatDate(goal.starDate)}}</li>
+            <li><span>End Date:</span> {{formatDate(goal.endDate)}}</li>
+          </ul>
+        </details>
+      </div>
+    </details>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="main bg-light min-vh-100 py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-4">
+            <h1 class="text-center">Gestion des tâches</h1>
+            </div>
+  
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card border-0 shadow rounded-4">
+            <div class="card-header bg-primary text-white rounded-top-4">
+              <h4 class="mb-0"><i class="fas fa-tasks me-2"></i>Liste des tâches</h4>
+            </div>
+  
+            <div class="card-body">
+              <div class="row gy-4">
+                <!-- Liste des tâches -->
+                <ng-container *ngIf="tasks.length > 0; else noTasks">
+                  <div *ngFor="let task of tasks" class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-info shadow-sm rounded-4">
+                      <div class="card-header bg-info text-dark rounded-top-4">
+                        <strong>Projet :</strong> {{ task.project.name }}
+                      </div>
+  
+                      <div class="card-body">
+                        <h5 class="card-title text-primary">
+                          <i class="fas fa-thumbtack me-1"></i> {{ task.name }}
+                        </h5>
+                        <p class="mb-1"><strong>Description :</strong> {{ task.description }}</p>
+                        <p class="mb-1">
+                          <strong>Statut :</strong>
+                          <span class="badge bg-{{ task.status === 'TODO' ? 'secondary' : task.status === 'IN_PROGRESS' ? 'warning' : 'success' }}">
+                            {{ task.status }}
+                          </span>
+                        </p>
+                        <p class="mb-1">
+                          <strong>Durée :</strong>
+                          <span class="badge bg-light text-dark border">{{ task.durationInDays }} jours</span>
+                        </p>
+                        <p class="mb-1"><strong>Date début :</strong> {{ task.startDate | date:'shortDate' }}</p>
+                        <p class="mb-1"><strong>Deadline :</strong> {{ task.deadline | date:'shortDate' }}</p>
+                      </div>
+  
+                      <div class="card-footer bg-light text-end rounded-bottom-4">
+                        <button class="btn btn-sm btn-outline-primary" (click)="openEditModal(task)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          <i class="fas fa-edit me-1"></i> Modifier
+                        </button>
+                      </div>
+  
+                    
+                    </div>
+                  </div>
+                </ng-container>
+  
+                <!-- Aucune tâche -->
+                <ng-template #noTasks>
+                  <div class="col-12 text-center text-muted">
+                    <p class="mt-3">
+                      <i class="fas fa-folder-open fa-2x mb-2"></i><br />
+                      Aucune tâche disponible pour ce projet.
+                    </p>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+     
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modifier la tâche</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        <div class="modal-body">
+            <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label for="taskName" class="form-label">Status</label>
+                  <select formControlName="status" class="form-control">
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="DONE">Done</option>
+                  </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success me-2">Mettre à jour</button>
+                </div>
+              </form>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
