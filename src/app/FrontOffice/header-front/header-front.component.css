@@ -1,0 +1,151 @@
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Vertically center all items */
+    list-style: none; /* Remove default list styling */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .navbar-nav .nav-item {
+    padding-left: 15px;
+    display: flex; /* Make each nav-item a flex container */
+    align-items: center; /* Vertically center the content */
+  }
+  
+  .bell-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    margin-top: -30px; /* Ensure the badge is positioned correctly */
+  }
+  
+  /* Ensure the dropdown menu is properly aligned */
+  .dropdown-menu {
+    margin-left: 40px;
+    margin-top: -50px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-menu.show {
+    transform: rotateY(180deg);
+    transform-origin: left;
+  }
+  
+  .notification {
+    width: 360px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 16px;
+    transform: rotateY(180deg);
+    
+  }
+  
+  .notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .notification-title {
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .notification-close {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F0F2F5;
+    font-size: 14px;
+  }
+  
+  .notification-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .notification-media {
+    position: relative;
+  }
+  
+  .notification-user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    object-fit: cover;
+  }
+  
+  .notification-reaction {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    color: white;
+    background-image: linear-gradient(45deg, #0070E1, #14ABFE);
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  
+  .notification-content {
+    width: calc(100% - 60px);
+    padding-left: 20px;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+  
+  .notification-text {
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 50px;
+  }
+  
+  .notification-timer {
+    color: #1876F2;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .notification-status {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: #1876F2;
+    border-radius: 50%;
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: 30px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%; /* Ensure it's a perfect circle */
+    width: 18px; /* Fixed width */
+    height: 18px; /* Fixed height (same as width) */
+    display: flex; /* Use flexbox to center the content */
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+    font-size: 10px; /* Adjust font size to fit the circle */
+    font-weight: bold;
+    padding: 0; /* Remove padding to avoid distortion */
+  }
