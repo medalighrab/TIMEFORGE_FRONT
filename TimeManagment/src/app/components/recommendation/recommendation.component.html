@@ -1,0 +1,26 @@
+<app-header-front></app-header-front>
+<div class="recommendation-form">
+    <input [(ngModel)]="userInput" placeholder="Entrez votre situation" />
+    <button (click)="getRecommendation()">Get Recommendation</button>
+    
+  </div>
+  
+  <div *ngIf="recommendation" class="recommendation-card">
+    <h2>✅ Recommended Technique: <strong>{{ recommendation.recommendation }}</strong></h2>
+  
+    <p>📝 <strong>Description:</strong> {{ recommendation.description }}</p>
+  
+    <p>⏱️ <strong>Durée suggérée:</strong> {{ recommendation.durationSuggestion }}</p>
+  
+    <div>
+      🎯 <strong>Bénéfices:</strong>
+      <ul>
+        <li *ngFor="let benefit of recommendation.benefits">
+          {{ benefit }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  

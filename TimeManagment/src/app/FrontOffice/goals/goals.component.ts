@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { GoalsService } from '../service/goals.service'; // Import the service
+import { GoalsService } from '../service/goals.service';
 
 @Component({
   selector: 'app-goals',
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.scss']
 })
-
-
 export class GoalsComponent implements OnInit {
   goals: any[] = [];
-  goal: any = {};
+  translatedDescriptions: { [goalId: number]: string } = {};
 
   constructor(private goalsService: GoalsService) { }
 
@@ -18,69 +16,73 @@ export class GoalsComponent implements OnInit {
     this.loadGoals();
   }
 
-  // Charger tous les objectifs
+  // Charge la liste des objectifs
   loadGoals(): void {
     this.goalsService.getgoalbytaskid().subscribe(
-      (data) => {
-        this.goals = data;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des objectifs', error);
-      }
+      data => this.goals = data,
+      err => console.error('Erreur chargement objectifs', err)
     );
   }
 
- 
-  getStatusClass(status: string): string {
-    if (status === 'Done') {
-      return 'Done';  // Green color for done
-    } else if (status === 'InProgress') {
-      return 'InProgress';  // Blue color for in-progress
-    }
-    return '';  // Default no color
-  }
-
-  // Supprimer un objectif
+  // Supprime un objectif puis recharge la liste
   deleteGoal(id: number): void {
     this.goalsService.deleteGoal(id).subscribe(
-      () => {
-        console.log('Objectif supprimé avec succès');
-        this.loadGoals(); // Recharger la liste des objectifs
-      },
-      (error) => {
-        console.error('Erreur lors de la suppression de l\'objectif', error);
-      }
+      () => this.loadGoals(),
+      err => console.error('Erreur suppression', err)
     );
   }
 
-  // Function to calculate the duration between start and end date
+  // Active/désactive le mode chronique
+  toggleChronic(goal: any): void {
+    this.goalsService.GoalActivChronics(goal.id, !goal.chronicActive).subscribe(
+      () => goal.chronicActive = !goal.chronicActive,
+      err => console.error('Erreur toggle chronique', err)
+    );
+  }
+
+  // Calcul de la durée en jours
   calculateDuration(startDate: string, endDate: string): string {
-    if (!startDate || !endDate) {
-      return ''; // Return empty string if no start or end date
+    if (!this.isValidDate(startDate) || !this.isValidDate(endDate)) {
+      return '';
+    }
+    const msPerDay = 1000 * 3600 * 24;
+    const diffDays = Math.ceil(
+      (new Date(endDate).getTime() - new Date(startDate).getTime()) / msPerDay
+    );
+    return `${diffDays} jours`;
+  }
+
+  private isValidDate(d: string): boolean {
+    return !isNaN(new Date(d).getTime());
+  }
+
+  formatDate(d: string): string {
+    if (!this.isValidDate(d)) {
+      return '';
+    }
+    const dt = new Date(d);
+    const mm = String(dt.getMonth() + 1).padStart(2, '0');
+    const dd = String(dt.getDate()).padStart(2, '0');
+    return `${dt.getFullYear()}-${mm}-${dd}`;
+  }
+
+  // Traduction de la description d'un objectif individuel
+  translateGoalDescription(goal: any): void {
+    const input = goal.description?.trim();
+
+    if (!input) {
+      console.warn('Description vide pour la traduction');
+      return;
     }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    // Calculate the difference in milliseconds, then convert to days
-    const duration = Math.ceil((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
-    return `${duration} days`;
+    this.goalsService.translateGoalText(input, 'en', 'fr').subscribe(
+      translated => {
+        this.translatedDescriptions[goal.id] = translated;
+      },
+      err => {
+        console.error('Erreur traduction', err);
+        this.translatedDescriptions[goal.id] = 'Erreur lors de la traduction.';
+      }
+    );
   }
-
-  formatDate(date: string): string {
-
-    const newDate = new Date(date);
-    const year = newDate.getFullYear();
-    const month = String(newDate.getMonth() + 1).padStart(2, '0'); // Month is zero-indexed
-    const day = String(newDate.getDate()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}`;
-  }
-
-  isActiveGoal(endDate: string): boolean {
-    const currentDate = new Date();
-    const goalEndDate = new Date(endDate);
-    return goalEndDate > currentDate;
-  }
-
 }

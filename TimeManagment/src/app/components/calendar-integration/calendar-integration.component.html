@@ -1,0 +1,69 @@
+<app-header-front></app-header-front>
+<div class="calendar-container">
+    <h2>📅 Gestion du Calendrier</h2>
+  
+    <!-- Formulaire -->
+    <form (ngSubmit)="save()" class="calendar-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Titre :</label>
+          <input [(ngModel)]="form.eventTitle" name="eventTitle" required placeholder="Ex: Réunion équipe" />
+        </div>
+  
+        <div class="form-group">
+          <label>Date :</label>
+          <input [(ngModel)]="form.eventDate" name="eventDate" type="date" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Heure Début :</label>
+          <input [(ngModel)]="form.startTime" name="startTime" type="time" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Heure Fin :</label>
+          <input [(ngModel)]="form.endTime" name="endTime" type="time" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Lieu :</label>
+          <input [(ngModel)]="form.location" name="location" required placeholder="Ex: Salle 2A" />
+        </div>
+  
+        <div class="form-group full-width">
+          <label>Description :</label>
+          <input [(ngModel)]="form.description" name="description" placeholder="Ex: Discussion avancée sur projet" />
+        </div>
+      </div>
+  
+      <div class="form-buttons">
+        <button type="submit" class="save-button">{{ editingId ? '✅ Modifier' : '➕ Ajouter' }}</button>
+        <button type="button" (click)="cancel()" class="cancel-button" *ngIf="editingId">❌ Annuler</button>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <!-- Liste des événements -->
+    <div class="events-grid" *ngIf="events.length > 0; else noData">
+      <div *ngFor="let event of events" class="event-card">
+        <div class="event-header">
+          <h3>{{ event.eventTitle }}</h3>
+          <small>{{ event.eventDate }}</small>
+        </div>
+        <p><strong>Heure :</strong> {{ event.startTime }} → {{ event.endTime }}</p>
+        <p><strong>Lieu :</strong> {{ event.location }}</p>
+        <p><strong>Description :</strong> {{ event.description }}</p>
+  
+        <div class="card-actions">
+          <button (click)="edit(event)" class="edit-button">✏️ Modifier</button>
+          <button (click)="delete(event.id!)" class="delete-button">🗑️ Supprimer</button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noData>
+      <p class="no-data">⚠️ Aucun événement encore créé.</p>
+    </ng-template>
+  </div>
+  

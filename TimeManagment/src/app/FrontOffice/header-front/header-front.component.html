@@ -1,4 +1,5 @@
 <!-- ***** Header Area Start ***** -->
+
 <header class="header-area header-sticky">
   <div class="container">
     <div class="row">
@@ -11,28 +12,33 @@
           <!-- ***** Logo End ***** -->
 
           <!-- ***** Menu Start ***** -->
-          <ul class="nav">
-            <li *ngIf="!isLogged"><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
-            <li *ngIf="!isLogged"><a [routerLink]="['/properties']" routerLinkActive="active">Properties</a></li>
-            <li *ngIf="isLogged"><a [routerLink]="['/task']" routerLinkActive="active">Task</a></li>
-            <li><a [routerLink]="['/goals']" routerLinkActive="active">Goals</a></li>
-            <li><a [routerLink]="['/health']" routerLinkActive="active">Health Reminder</a></li>
+          <ul class="navbar-nav">
+
+            <li><a [routerLink]="['/calendar']">Calendar</a></li>
+            <li><a [routerLink]="['/time-trackers']">Time Tracker</a></li>
+            <li><a [routerLink]="['/time-techniques']">Time Technique</a></li>
+            <li><a [routerLink]="['/smart-planner']">🧠 Planning Intelligent</a></li>
+
+            <li><a [routerLink]="['/recommendation']">🧠 Recommendation</a></li>
+
             <li *ngIf="!isLogged"><a [routerLink]="['/login']" routerLinkActive="active">Login</a></li>
             <li *ngIf="isLogged"><a (click)="logout()" role="button">Logout</a></li>
+            <app-notification-bell></app-notification-bell>
 
-            <!-- Reminder dropdown (s'affiche quand connecté) -->
-            <li class="dropdown" [class.open]="showDropdown" (click)="toggleDropdown()">
-              <a class="dropdown-toggle">
-                <i class="fa fa-calendar"></i> Reminder
-              </a>
-              <ul *ngIf="showDropdown" class="dropdown-menu">
-                <li *ngFor="let reminder of reminders" class="dropdown-item">
-                  <a>{{ reminder.title }} - {{ reminder.description }}</a>
-                </li>
-              </ul>
+            <li>
+              <div style="margin-top: 15px;">
+                <a class="nav-link" [routerLink]="['/chat', userId]">
+                  <div class="bell-container">
+                    <i class="bi bi-messenger"></i>
+                  </div>
+                </a>
+              </div>
             </li>
-          </ul>
 
+            <!-- Reminder dropdown -->
+            
+
+          </ul>
           <a class="menu-trigger">
             <span>Menu</span>
           </a>

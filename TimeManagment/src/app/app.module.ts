@@ -1,7 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+ // ✅ à ajouter ici
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { AllTemplateBackComponent } from './BackOffice/all-template-back/all-template-back.component';
 import { FooterBackComponent } from './BackOffice/footer-back/footer-back.component';
 import { NavbarBackComponent } from './BackOffice/navbar-back/navbar-back.component';
@@ -16,23 +22,31 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
 import { StatsComponent } from './BackOffice/stats/stats.component';
 import { TablesComponent } from './BackOffice/tables/tables.component';
 import { SettingsComponent } from './BackOffice/settings/settings.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-//import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
 import { GoalsComponent } from './FrontOffice/goals/goals.component';
 import { HealthReminderComponent } from './FrontOffice/health-reminder/health-reminder.component';
-import { HealthReminderService } from './FrontOffice/service/health-reminder.service';
-
+import { TaskComponent } from './FrontOffice/task/task.component';
 import { ListeComponent } from './BackOffice/tasks/liste/liste.component';
-import { TokenInterceptor } from './Interceptor/token-interceptor';
 import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.component';
+import { ChatComponent } from './chat/chat.component';
+import { TimeManagementTechniquesComponent } from './components/time-management-techniques/time-management-techniques.component';
+import { TimeTrackerComponent } from './components/time-tracker/time-tracker.component';
+import { CalendarIntegrationComponent } from './components/calendar-integration/calendar-integration.component';
+import { SmartPlannerComponent } from './smart-planner/smart-planner.component';
+import { RecommendationComponent } from './components/recommendation/recommendation.component';
+
+import { ButtonModule } from 'primeng/button';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NotificationBellComponent } from './components/notification-bell/notification-bell.component';
+
+import { NgChartsModule } from 'ng2-charts';
 
 
+const config: SocketIoConfig = { url: 'http://localhost:8089', options: {} }; // ✅ correction ici
 
 @NgModule({
   declarations: [
+  
     AppComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
@@ -48,27 +62,38 @@ import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.c
     StatsComponent,
     TablesComponent,
     SettingsComponent,
-  
     GoalsComponent,
     HealthReminderComponent,
-
+    TaskComponent,
     ListeComponent,
-     TaskemployeeComponent,
+    TaskemployeeComponent,
+    ChatComponent,
+    TimeManagementTechniquesComponent,
+    TimeTrackerComponent,
+    CalendarIntegrationComponent,
+    SmartPlannerComponent,
+    RecommendationComponent,
+    NotificationBellComponent,
 
   ],
   imports: [
+    NgChartsModule,
     BrowserModule,
+   // ✅ ajouté
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    //DrawerModule, 
-     
-    ButtonModule
+    ButtonModule,
+    SocketIoModule.forRoot(config),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
-  providers: [HealthReminderService, 
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
