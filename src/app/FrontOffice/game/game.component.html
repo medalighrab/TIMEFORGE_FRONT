@@ -1,0 +1,60 @@
+<div class="container my-5">
+    <div class="card border-0 shadow rounded-4">
+      <div class="card-body p-4">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold">🎮 Gamification</h2>
+          <p class="text-muted mb-0">Suivez votre progression et débloquez des récompenses</p>
+        </div>
+  
+        <div class="row text-center mb-4">
+          <div class="col-md-4">
+            <div class="fs-5 fw-semibold text-success">🎖 Niveau</div>
+            <span class="badge bg-success fs-6 px-3 py-2">
+              {{ gamificationProfile?.level ||  1}}
+            </span>
+          </div>
+          <div class="col-md-4">
+            <div class="fs-5 fw-semibold text-warning">⚡ Expérience</div>
+            <div class="fw-bold fs-6">
+              {{ gamificationProfile?.xp || 0 }} XP
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="fs-5 fw-semibold text-info">✅ Tâches</div>
+            <span class="badge bg-info text-dark fs-6 px-3 py-2">
+              {{ gamificationProfile?.completedTasks || 0 }}
+            </span>
+          </div>
+        </div>
+  
+        <div class="text-center mb-4">
+          <h5 class="fw-bold">Badge actuel</h5>
+          <ng-container [ngSwitch]="gamificationProfile?.level">
+            <img *ngSwitchCase="1" src="assets/one.png" alt="Niveau 1" class="img-thumbnail" style="height: 60px; width: 65px;">
+            <img *ngSwitchCase="2" src="assets/two.png" alt="Niveau 2" class="img-thumbnail" style="height: 60px; width: 65px;">
+            <img *ngSwitchCase="3" src="assets/three.png" alt="Niveau 3" class="img-thumbnail" style="height: 60px; width: 65px;">
+            <img *ngSwitchCase="4" src="assets/rewards.png" alt="Niveau 4" class="img-thumbnail" style="height: 60px; width: 65px;">
+            <img *ngSwitchCase="5" src="assets/five.png" alt="Niveau supérieur" class="img-thumbnail" style="height: 60px; width: 65px;">
+
+            <img *ngSwitchDefault src="assets/one.png" alt="Niveau supérieur" class="img-thumbnail" style="height: 60px; width: 65px;">
+          </ng-container>
+        </div>
+  
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Progression vers le niveau suivant :</label>
+          <div class="progress" style="height: 25px;">
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+              role="progressbar"
+              [style.width.%]="getProgressPercentage()"
+              aria-valuemin="0"
+              aria-valuemax="100">
+              {{ getProgressPercentage() }}%
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

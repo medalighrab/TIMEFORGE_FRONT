@@ -1,0 +1,48 @@
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a [routerLink]="['/']" class="logo">
+            <h1>Timeforge</h1>
+          </a>
+          <!-- ***** Logo End ***** -->
+
+          <!-- ***** Menu Start ***** -->
+          <ul class="nav">
+            <li *ngIf="!isLogged"><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+            <li *ngIf="!isLogged"><a [routerLink]="['/properties']" routerLinkActive="active">Properties</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/task']" routerLinkActive="active">Task</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/historique']" routerLinkActive="active">Archive</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/stat']" routerLinkActive="active">Stat</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/game']" routerLinkActive="active">Game</a></li>
+            <li><a [routerLink]="['/goals']" routerLinkActive="active">Goals</a></li>
+            <li><a [routerLink]="['/health']" routerLinkActive="active">Health Reminder</a></li>
+            <li *ngIf="!isLogged"><a [routerLink]="['/login']" routerLinkActive="active">Login</a></li>
+            <li *ngIf="isLogged"><a (click)="logout()" role="button">Logout</a></li>
+
+            <!-- Reminder dropdown (s'affiche quand connecté) -->
+            <li class="dropdown" [class.open]="showDropdown" (click)="toggleDropdown()">
+              <a class="dropdown-toggle">
+                <i class="fa fa-calendar"></i> Reminder
+              </a>
+              <ul *ngIf="showDropdown" class="dropdown-menu">
+                <li *ngFor="let reminder of reminders" class="dropdown-item">
+                  <a>{{ reminder.title }} - {{ reminder.description }}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <a class="menu-trigger">
+            <span>Menu</span>
+          </a>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->

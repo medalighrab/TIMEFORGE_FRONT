@@ -1,0 +1,48 @@
+<div class="container mt-5 leaderboard">
+    <h2 class="text-center mb-4 display-6">
+      🏆 Classement des employés
+    </h2>
+  
+    <table class="table table-striped table-hover text-center align-middle shadow rounded">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Utilisateur</th>
+          <th>Niveau</th>
+          <th>XP</th>
+          <th>Tâches</th>
+          <th>Badge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of leaderboard; let i = index" class="align-middle">
+          <th scope="row">{{ i + 1 }}</th>
+          <td class="fw-bold">
+            <i class="bi bi-person-fill text-primary me-1"></i>
+            {{ user.user.username }}
+          </td>
+          <td>
+            <span class="badge bg-success fs-6 text-white">
+              🎖 Niveau {{ user.level }}
+            </span>
+          </td>
+          <td>
+            <span class="text-warning fw-bold">{{ user.xp }}</span>
+          </td>
+          <td>
+            <span class="badge bg-info text-dark">{{ user.completedTasks }}</span>
+          </td>
+          <td>
+            <ng-container [ngSwitch]="user.level">
+              <img *ngSwitchCase="1" src="assets/one.png" alt="Niveau 1" class="img-fluid" style="height: 40px;width:  35px;">
+              <img *ngSwitchCase="2" src="assets/two.png" alt="Niveau 2"  class="img-fluid" style="height: 40px;width:  35px;">
+              <img *ngSwitchCase="3" src="assets/three.png" alt="Niveau 3"  class="img-fluid" style="height: 40px;width:  35px;">
+              <img *ngSwitchCase="4" src="assets/rewards.png" alt="Niveau 4"  class="img-fluid" style="height: 40px;width:  35px;">
+              <img *ngSwitchDefault src="assets/five.png" alt="Autre"  class="img-fluid" style="height: 40px;width:  35px;">
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

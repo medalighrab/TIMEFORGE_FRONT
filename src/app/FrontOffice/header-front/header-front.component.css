@@ -1,0 +1,70 @@
+/* Styling the dropdown */
+.dropdown {
+    position: relative; /* Assure que le dropdown-menu est positionné par rapport à ce parent */
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    background-color: #e9ecef;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Positionne le dropdown juste en dessous du parent */
+    left: 0; /* Aligne le dropdown avec le bord gauche du parent */
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 200px; /* Largeur minimale pour éviter les changements de taille */
+    border-radius: 5px;
+    padding: 0; /* Supprimer le padding pour éviter les espaces vides */
+    list-style-type: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu a {
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown.open .dropdown-menu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Supprimer les marges et paddings inutiles */
+.dropdown-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Aligner les éléments de manière cohérente */
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Assurer que les éléments ne dépassent pas */
+* {
+    box-sizing: border-box;
+}
