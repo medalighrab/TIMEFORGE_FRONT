@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,13 +22,27 @@ import { RouterModule } from '@angular/router';
 //import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 import { GoalsComponent } from './FrontOffice/goals/goals.component';
-import { HealthReminderComponent } from './FrontOffice/health-reminder/health-reminder.component';
 import { HealthReminderService } from './FrontOffice/service/health-reminder.service';
 
 import { ListeComponent } from './BackOffice/tasks/liste/liste.component';
 import { TokenInterceptor } from './Interceptor/token-interceptor';
 import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.component';
+import { AddProjectComponentComponent } from './Projet/add-project-component/add-project-component.component';
 
+import { AssignTaskComponent } from './Task/assign-task/assign-task.component';
+import { TaskByProjectComponent } from './Task/task-by-project/task-by-project.component';
+import { TaskByUserComponent } from './Task/task-by-user/task-by-user.component';
+import { ProjectCalendarComponent } from './Projet/project-calendar/project-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { ProjetDetailComponent } from './Projet/projet-detail/projet-detail.component';
+import { UserProfileComponent } from './User/user-profile/user-profile.component';
+import { RapportProjectComponent } from './Projet/rapport-project/rapport-project.component';
+import { MeetLauncherComponent } from './meet-launcher/meet-launcher.component';
+import { LoginnComponent } from './loginn/loginn.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
@@ -48,12 +62,23 @@ import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.c
     StatsComponent,
     TablesComponent,
     SettingsComponent,
+    AddProjectComponentComponent,
   
     GoalsComponent,
-    HealthReminderComponent,
 
     ListeComponent,
      TaskemployeeComponent,
+     AddProjectComponentComponent,
+  
+     AssignTaskComponent,
+     TaskByProjectComponent,
+     TaskByUserComponent,
+     ProjectCalendarComponent,
+     ProjetDetailComponent,
+     UserProfileComponent,
+     RapportProjectComponent,
+     MeetLauncherComponent,
+     LoginnComponent,
 
   ],
   imports: [
@@ -63,6 +88,11 @@ import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.c
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    FullCalendarModule,
+    WebcamModule,
+    
+    
+
     //DrawerModule, 
      
     ButtonModule
@@ -70,6 +100,10 @@ import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.c
   providers: [HealthReminderService, 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]  // Ajoute cette ligne ici
+
 })
+
 export class AppModule { }

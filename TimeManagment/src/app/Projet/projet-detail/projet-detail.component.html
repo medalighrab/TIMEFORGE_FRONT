@@ -1,0 +1,209 @@
+<app-all-template-front></app-all-template-front>
+<!-- ✅ Section Header Professionnelle -->
+<header class="business-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="display-4">PROJECT MANAGEMENT</h1>
+          <h2>DETAILS_PROJECT</h2>
+          <p class="lead">Professional Solutions for Your Business Needs</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class="project-container">
+    <div class="project-header">
+  <div class="project-title-actions">
+    <h1>{{ project?.name }}</h1>
+    <div class="project-actions">
+      <button class="icon-btn edit-btn" [routerLink]="['/A']" title="Modifier le projet">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button class="icon-btn delete-btn" (click)="deleteProject(project.projectid)" title="Supprimer le projet">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+  </div>
+  <div class="project-meta">
+    
+    <section class="progress-section">
+      <div class="progress-info">
+        <span class="progress-label">Avancement du projet :</span>
+        <span class="progress-value">{{ projectProgress }}%</span>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar {{ getProgressColor() }}" [style.width.%]="projectProgress"></div>
+      </div>
+    </section>
+    
+   
+  </div>
+  <div class="project-container">
+    <div class="project-header">
+      <h1>{{ project?.name }}</h1>
+      <p class="project-description">Description  :                                {{ project?.description }}</p>
+      <div class="project-meta">
+        
+        <span class="meta-item"><i class="fas fa-calendar-check"></i> Deadline: {{ project?.deadline | date }}</span>
+        <span class="meta-item status-badge" [ngClass]="'status-' + project?.status">
+          <i class="fas fa-circle"></i> {{ project?.status }}
+        </span>
+      </div>
+    </div>
+  
+    <div class="project-content">
+      <!-- Section Tâches -->
+      <div class="section">
+        <h2><i class="fas fa-tasks"></i> Tâches du projet</h2>
+        <div *ngIf="tasks.length === 0" class="no-data">
+          Aucune tâche n'a été créée pour ce projet.
+        </div>
+        <div class="tasks-grid" *ngIf="tasks.length > 0">
+          <div class="task-card" *ngFor="let task of tasks">
+            <div class="task-header">
+              <h3>{{ task.name }}</h3>
+             
+            </div>
+            <p class="task-description">{{ task.description }}</p>
+            <div class="task-footer">
+              <span class="task-status" [ngClass]="'status-' + task.status">
+                {{ task.status }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Section Membres -->
+      <div class="section">
+        <h2><i class="fas fa-users"></i> Membres de l'équipe</h2>
+        <div *ngIf="users.length === 0" class="no-data">
+          Aucun membre n'a été assigné à ce projet.
+        </div>
+        <div class="users-grid" *ngIf="users.length > 0">
+          <div class="user-card" *ngFor="let user of users">
+            <div class="user-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-info">
+              <p class="user-email">{{ user.username }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ✅ Section Statistiques Professionnelle -->
+<section class="stats-section py-5 bg-dark text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-3">
+          <div class="stat-item">
+            <h3 class="counter"></h3>
+            <p>Total Projects</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <h3 class="counter"></h3>
+            <p>Completed</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <h3 class="counter"></h3>
+            <p>In Progress</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-item">
+            <h3 class="counter"></h3>
+            <p>Overdue</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- <button (click)="analyzeProjectComments()" class="btn btn-primary my-3" [disabled]="isLoading">
+  <span *ngIf="!isLoading">🔍 Analyser les commentaires (IA)</span>
+  <span *ngIf="isLoading"><i class="spinner-border spinner-border-sm"></i> Analyse en cours...</span>
+</button>
+
+ ✅ Résultat de l'analyse IA 
+<div *ngIf="predictedSummary || predictedStress" class="card mt-3 p-3 shadow-sm animate__animated animate__fadeIn">
+  <h5 class="mb-2">🧠 Résultat de l'analyse IA :</h5>
+
+  <p>
+    <strong>Résumé prédit :</strong><br>
+    <span class="text-muted">{{ predictedSummary || 'Aucun résumé disponible.' }}</span>
+  </p>
+
+  <p>
+    <strong>Niveau de stress prédit :</strong><br>
+    <span
+      [ngClass]="{
+        'badge bg-success': predictedStress === 'Stable',
+        'badge bg-warning': predictedStress === 'Modéré',
+        'badge bg-danger': predictedStress === 'Tendu'
+      }"
+    >
+      {{ predictedStress || 'Non évalué' }}
+    </span>
+  </p>
+</div>
+
+✅ Gestion des erreurs 
+<div *ngIf="analysisError" class="alert alert-danger mt-3 animate__animated animate__shakeX">
+   Une erreur est survenue lors de l'analyse des commentaires (IA).
+</div>
+-->
+
+
+
+
+
+
+  <!-- ✅ Footer Professionnel -->
+<footer class="footer bg-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About ProManager</h5>
+          <p>A professional project management solution for modern businesses.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Team</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <address>
+            <strong>ProManager Inc.</strong><br>
+            123 Business Ave<br>
+            New York, NY 10001<br>
+            <i class="fas fa-phone"></i> (123) 456-7890<br>
+            <i class="fas fa-envelope"></i> 
+          </address>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="mb-0">&copy; 2023 ProManager. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>

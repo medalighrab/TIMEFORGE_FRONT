@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,9 @@ export class RegisterComponent {
     acceptTerms: [false, [Validators.requiredTrue]]
   });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService,
+    private router: Router 
+  ) {}
 
   onSubmit(): void {
     if (this.registerForm.invalid || this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
@@ -29,6 +32,7 @@ export class RegisterComponent {
       next: (res) => {
         alert('Registration successful');
         this.registerForm.reset();
+        this.router.navigate(['/login']); 
        
         
       },
@@ -39,3 +43,31 @@ export class RegisterComponent {
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

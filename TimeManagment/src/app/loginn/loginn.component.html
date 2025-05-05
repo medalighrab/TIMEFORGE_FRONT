@@ -1,0 +1,24 @@
+<div class="face-id-container">
+  <div class="face-id-form">
+    <h2 class="face-id-title">🔒 Login with Face ID</h2>
+
+    <div class="webcam-wrapper">
+      <webcam 
+        [trigger]="trigger" 
+        (imageCapture)="handleImage($event)">
+      </webcam>
+    </div>
+
+    <button (click)="triggerSnapshot()" class="face-id-button">
+      📷 Capture & Login
+    </button>
+
+    <p class="face-id-result">{{ resultMessage }}</p>
+
+    <!-- ✅ Retour au login -->
+    <p class="back-to-login">
+      <span>Ou</span> 
+      <b (click)="navigateToLogin()" class="pointer">Retour au Login classique</b>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+<!-- rapport-project.component.html moderne + graphique + timeline -->
+
+<app-all-template-front></app-all-template-front>
+<!-- ✅ Section Header Professionnelle -->
+<header class="business-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="display-4">PROJECT MANAGEMENT</h1>
+        <p class="lead">Professional Solutions for Your Business Needs</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+
+<div id="report-container" class="container">
+  <!-- Entête du rapport -->
+  <header class="report-header">
+    <img src="assets/logo-timeforge.png" alt="TimeForge Logo" class="logo" />
+    <h1>Rapport du Projet : {{ project?.name }}</h1>
+    <p class="subtitle">Date de génération : {{ currentDate | date:'dd/MM/yyyy' }}</p>
+  </header>
+
+  <!-- Progression du projet -->
+  <section class="progress-section">
+    <h2>Progression du projet</h2>
+    <div class="progress-container">
+      <div class="progress-bar {{ getProgressColor() }}" [style.width.%]="projectProgress"></div>
+      <span>{{ projectProgress }}%</span>
+    </div>
+  </section>
+
+  <!-- Graphique des tâches -->
+  <section class="chart-section">
+    <h2>Répartition des tâches</h2>
+    <canvas id="taskPieChart" width="150" height="150"></canvas>
+  </section>
+
+  <!-- Timeline deadlines -->
+  <section class="timeline-section">
+    <h2>Échéances Principales</h2>
+    <ul class="timeline">
+      <li><strong>Deadline Projet Réelle :</strong> {{ realDeadline | date:'fullDate' }}</li>
+      <li><strong>Deadline Estimée IA :</strong> {{ estimatedEndDate | date:'fullDate' }}</li>
+    </ul>
+  </section>
+
+  <!-- Section Estimation IA -->
+  <section class="estimation-section">
+    <h2>Prédiction IA</h2>
+    <div class="card estimation-card">
+      <p><strong>Status:</strong> {{ solutionMessage }}</p>
+      <div *ngIf="!solutionApplied && applySolutionRequested">
+        <button (click)="applySolution()" class="btn btn-success">✅ Appliquer la solution proposée</button>
+      </div>
+    </div>
+    <div *ngIf="estimatedEndDate && realDeadline" class="ai-solution-section">
+      <h3>⚡ Prédiction IA</h3>
+      <p><strong>Status :</strong> {{ solutionMessage }}</p>
+    
+      <div class="solution-actions">
+        <button class="btn btn-success" (click)="applySolution()">✅ Appliquer la solution</button>
+        <button class="btn btn-danger" (click)="rejectSolution()">❌ Refuser</button>
+      </div>
+    
+      <div *ngIf="solutionApplied" class="alert alert-success mt-2">
+        ✅ Solution appliquée avec succès !
+      </div>
+      
+      <div *ngIf="solutionRejected" class="alert alert-warning mt-2">
+        ❌ Solution refusée.
+      </div>
+    </div>
+    
+  </section>
+  
+
+  <!-- Tâches par statut -->
+  <section class="tasks-section">
+    <h2>Liste des Tâches</h2>
+    <div *ngFor="let status of ['TODO', 'IN_PROGRESS', 'DONE', 'BLOCKED']">
+      <h3>{{ status }}</h3>
+      <table *ngIf="tasksByStatus && tasksByStatus[status] && tasksByStatus[status].length > 0" class="task-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Assignée à</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasksByStatus[status]">
+            <td>{{ task.name }}</td>
+            <td>{{ task.employee11?.name }}</td>
+            <td>{{ task.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Employés -->
+  <section class="employee-section">
+    <div class="employee-list">
+      <div>
+        <h3>Employés Surchargés ({{ employeesOverloaded.length }})</h3>
+        <ul>
+          <li *ngFor="let user of employeesOverloaded">{{ user.username }} - {{ user.email }}</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Employés Non Surchargés ({{ employeesNotOverloaded.length }})</h3>
+        <ul>
+          <li *ngFor="let user of employeesNotOverloaded">{{ user.username }} - {{ user.email }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="report-footer">
+    <p>Rapport généré par TimeForge © 2025</p>
+  </footer>
+</div>
+
+<!-- Boutons Action -->
+<div class="action-buttons">
+  <button (click)="printPDF()" class="btn btn-pdf">Générer PDF</button>
+  
+</div>
+<div class="share-buttons">
+  <button (click)="shareOnFacebook()" class="btn-share facebook">Partager Facebook</button>
+  <button (click)="shareOnLinkedIn()" class="btn-share linkedin">Partager LinkedIn</button>
+  <button (click)="shareOnTwitter()" class="btn-share twitter">Partager Twitter</button>
+</div>
+
+
+
+
+<!-- ✅ Footer Professionnel -->
+<footer class="footer bg-light py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>About ProManager</h5>
+        <p>A professional project management solution for modern businesses.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Contact Us</h5>
+        <address>
+          <strong>ProManager Inc.</strong><br>
+          123 Business Ave<br>
+          New York, NY 10001<br>
+          <i class="fas fa-phone"></i> (123) 456-7890<br>
+          <i class="fas fa-envelope"></i> 
+        </address>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p class="mb-0">&copy; 2023 ProManager. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>

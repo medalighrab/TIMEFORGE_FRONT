@@ -5,7 +5,6 @@ export interface Project {
     name: string | null;
     description: string | null;
     deadline: Date | null;
-    cahiercharge: string | null;
     
     taskss: Task[];
   }

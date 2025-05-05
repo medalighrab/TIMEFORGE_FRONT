@@ -13,6 +13,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+           "allowedCommonJsDependencies": [
+              "html2canvas",
+              "canvg",
+              "core-js"
+            ],
+            
+            "webWorkerTsConfig": "tsconfig.app.json",
             "outputPath": "dist/time-managment",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -31,8 +38,9 @@
               "src/assets/FrontOffice/assets/css/animate.css",
               "src/assets/FrontOffice/assets/css/fontawesome.css",
               "src/assets/FrontOffice/assets/css/templatemo-villa-agency.css",
-              "src/assets/BackOffice/assets/css/sb-admin-2.min.css"
-              
+              "src/assets/BackOffice/assets/css/sb-admin-2.min.css",
+               "node_modules/animate.css/animate.min.css",
+                "src/styles.css"
               
             ],
             "scripts": [
@@ -116,5 +124,9 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "de1b69ef-88d6-4895-80de-70cd821ed1e2"
   }
+ 
 }

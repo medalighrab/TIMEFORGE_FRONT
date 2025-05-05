@@ -1,0 +1,97 @@
+
+<app-all-template-front></app-all-template-front>
+<!-- ✅ Section Header Professionnelle -->
+<header class="business-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="display-4">PROJECT MANAGEMENT</h1>
+          <p class="lead">Professional Solutions for Your Business Needs</p>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+<div class="calendar-container">
+  <full-calendar *ngIf="events.length > 0" [options]="calendarOptions"></full-calendar>
+
+  <!-- Message lorsque aucun événement n'est disponible -->
+  <div *ngIf="events.length === 0" class="no-events-message">
+    <p>Aucun projet à afficher pour cette période.</p>
+  </div>
+</div>
+
+
+
+<!-- ✅ Section Statistiques Professionnelle -->
+<section class="stats-section py-5 bg-dark text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3">
+        <div class="stat-item">
+          <h3 class="counter"></h3>
+          <p>Total Projects</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-item">
+          <h3 class="counter"></h3>
+          <p>Completed</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-item">
+          <h3 class="counter"></h3>
+          <p>In Progress</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-item">
+          <h3 class="counter"></h3>
+          <p>Overdue</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- ✅ Footer Professionnel -->
+<footer class="footer bg-light py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>About ProManager</h5>
+        <p>A professional project management solution for modern businesses.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Contact Us</h5>
+        <address>
+          <strong>ProManager Inc.</strong><br>
+          123 Business Ave<br>
+          New York, NY 10001<br>
+          <i class="fas fa-phone"></i> (123) 456-7890<br>
+          <i class="fas fa-envelope"></i> 
+        </address>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p class="mb-0">&copy; 2023 ProManager. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>

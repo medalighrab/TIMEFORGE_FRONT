@@ -46,4 +46,47 @@ export class TaskService {
   getallUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/allUsers`);
   }
+
+
+
+
+
+  ///////////////  oun function////////
+  // New methods for task assignment and status filtering
+  affectTaskToUserAndProject(taskId: number, userId: number, projectId: number): Observable<Task> {
+    return this.http.post<Task>(`${this.apiUrl}/affect/${taskId}/user/${userId}/project/${projectId}`, null);
+  }
+
+  reassignTaskToUserAndProject(taskId: number, userId: number, projectId: number): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/reassign/${taskId}/user/${userId}/project/${projectId}`, null);
+  }
+
+  getBacklogTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.apiUrl}/backlog`);
+  }
+
+  getTodoTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.apiUrl}/todo`);
+  }
+
+  getInProgressTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.apiUrl}/inprogress`);
+  }
+
+  getDoneTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.apiUrl}/done`);
+  }
+  getTaskCountByProject(projectId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count/project/${projectId}`);
+  }
+  
+  getTaskCountByUser(userId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count/user/${userId}`);
+  }
+
+  
+addAndAssignTask(task: Task, userId: number, projectId: number): Observable<Task> {
+  const url = `${this.apiUrl}/add-with-assign/${userId}/${projectId}`;
+  return this.http.post<Task>(url, task);
+}
 }

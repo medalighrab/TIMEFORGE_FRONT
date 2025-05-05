@@ -1,40 +1,253 @@
-<!DOCTYPE html>
-<!-- Source Codes By CodingNepal - www.codingnepalweb.com -->
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login to TimeForge </title>
-  
-</head>
-<body>
-  <div class="login_form">
-    <!-- Login form container -->
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <h3>Log to TimeForge</h3>
-    
-      <div class="input_box">
-        <label>Email</label>
-        <input formControlName="mail" type="email" placeholder="Enter email address" />
-        <div *ngIf="loginForm.get('mail')?.invalid && loginForm.get('mail')?.touched">
-          <small >Email invalide</small>
+<main id="main" class="main">
+  <div id="container" class="container" [ngClass]="{'sign-in': isSignIn && !isForgotPassword, 'sign-up': !isSignIn, 'forgot-password': isForgotPassword}">
+      <!-- FORM SECTION -->
+      <div class="row">
+        <!-- SIGN UP -->
+        <div class="col align-items-center flex-col sign-up">
+          <h2 *ngIf="!isSignIn" style="color: black; font-size: 3em; font-weight: 900; text-align: center; margin-top: 120px; text-transform: uppercase; letter-spacing: 4px; background: linear-gradient(20deg, #e6d024, #dfa00c); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(0,0,0,0.2); position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1;">
+            Signup
+          </h2>
+          
+          <div class="form-wrapper align-items-center">
+            <div class="form sign-up">
+              <!-- Username Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bxs-user' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="text" 
+                       placeholder="Username" 
+                       [(ngModel)]="registerData.username" 
+                       name="username" 
+                       [style.border-color]="registerErrors.username ? 'red' : registerData.username && !registerErrors.username ? 'green' : 'black'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (blur)="validateRegister()">
+                <span *ngIf="registerData.username && !registerErrors.username" style="color: green; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✓</span>
+                <span *ngIf="registerErrors.username" style="color: red; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✗</span>
+              </div>
+              <p *ngIf="registerErrors.username" class="error-message" style="color: red; margin-bottom: 15px; font-size: 18px;">
+                {{ registerErrors.username }}
+              </p>
+        
+              <!-- Name Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bxs-user-detail' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="text" 
+                       placeholder="Full Name" 
+                       [(ngModel)]="registerData.name" 
+                       name="name" 
+                       [style.border-color]="registerErrors.name ? 'red' : registerData.name && !registerErrors.name ? 'green' : 'black'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (blur)="validateRegister()">
+                <span *ngIf="registerData.name && !registerErrors.name" style="color: green; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✓</span>
+                <span *ngIf="registerErrors.name" style="color: red; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✗</span>
+              </div>
+              <p *ngIf="registerErrors.name" class="error-message" style="color: red; margin-bottom: 15px; font-size: 18px;">
+                {{ registerErrors.name }}
+              </p>
+        
+              <!-- CIN Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bxs-id-card' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="text" 
+                       placeholder="CIN (8 digits)" 
+                       [(ngModel)]="registerData.cin" 
+                       name="cin" 
+                       [style.border-color]="registerErrors.cin ? 'red' : registerData.cin && !registerErrors.cin ? 'green' : 'black'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (blur)="validateRegister()">
+                <span *ngIf="registerData.cin && !registerErrors.cin" style="color: green; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✓</span>
+                <span *ngIf="registerErrors.cin" style="color: red; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✗</span>
+              </div>
+              <p *ngIf="registerErrors.cin" class="error-message" style="color: red; margin-bottom: 15px; font-size: 18px;">
+                {{ registerErrors.cin }}
+              </p>
+        
+              <!-- Password Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bxs-lock-alt' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="password" 
+                       placeholder="Password" 
+                       [(ngModel)]="registerData.password" 
+                       name="password" 
+                       [style.border-color]="registerErrors.password ? 'red' : registerData.password && !registerErrors.password ? 'green' : 'black'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (blur)="validateRegister()">
+                <span *ngIf="registerData.password && !registerErrors.password" style="color: green; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✓</span>
+                <span *ngIf="registerErrors.password" style="color: red; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✗</span>
+              </div>
+              <p *ngIf="registerErrors.password" class="error-message" style="color: red; margin-bottom: 15px; font-size: 18px;">
+                {{ registerErrors.password }}
+              </p>
+        
+              <!-- Confirm Password Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bxs-lock' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="password" 
+                       placeholder="Confirm Password" 
+                       [(ngModel)]="registerData.confirmPassword" 
+                       name="confirmPassword" 
+                       [style.border-color]="registerErrors.confirmPassword ? 'red' : registerData.confirmPassword && !registerErrors.confirmPassword ? 'green' : 'black'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (blur)="validateRegister()">
+                <span *ngIf="registerData.confirmPassword && !registerErrors.confirmPassword && registerData.password === registerData.confirmPassword" style="color: green; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✓</span>
+                <span *ngIf="registerErrors.confirmPassword" style="color: red; position: absolute; top: 50%; right: 15px; transform: translateY(-50%); font-size: 18px;">✗</span>
+              </div>
+              <p *ngIf="registerErrors.confirmPassword" class="error-message" style="color: red; margin-bottom: 15px; font-size: 18px;">
+                {{ registerErrors.confirmPassword }}
+              </p>
+        
+              <!-- Submit Button -->
+              <button (click)="onRegister()" 
+                      style="background-color: var(--primary-color); color: var(--white); border-radius: 25px; padding: 12px; font-size: 16px; transition: all 0.3s ease; width: 100%; border: none; cursor: pointer;"
+                      [disabled]="!validateRegister()">
+                Sign up
+              </button>
+        
+              <p style="color: var(--gray-2);">
+                <span>Already have an account?</span>
+                <b (click)="toggle()" class="pointer" style="color: var(--primary-color);">
+                  Sign in here
+                </b>
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+        <!-- END SIGN UP -->
     
-      <div class="input_box">
-        <label>Mot de passe</label>
-        <input formControlName="password" type="password" placeholder="Enter your password" />
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          <small >Mot de passe requis</small>
-        </div>
-      </div>
-      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
-    
-      <p *ngIf="errorMessage" >{{ errorMessage }}</p>
-    </form>
-    <div class="text">
-      <h3>Create an account? <a routerLink="/register">Register </a></h3>
-    </div>
+        <!-- SIGN IN -->
+        <div class="col align-items-center flex-col sign-in" *ngIf="!isForgotPassword">
+          <h2 *ngIf="isSignIn" style="color: var(--primary-color); font-size: 3em; font-weight: 900; text-align: center; margin-top: 200px; text-transform: uppercase; letter-spacing: 4px; background: linear-gradient(20deg, #ffb700, #ffe100); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(0,0,0,0.2); position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1;">Login</h2>
+          <div class="form-wrapper align-items-center">
+            <div class="form sign-in">
+              <!-- Email Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bx-mail-send' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="email" 
+                       placeholder="Email" 
+                       [(ngModel)]="loginData.mail" 
+                       name="mail" 
+                       [style.border-color]="errorMessage ? 'red' : 'var(--gray-2)'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (focus)="errorMessage = ''">
+              </div>
+              
+              <!-- Password Field -->
+              <div class="input-group" style="position: relative; margin-bottom: 20px;">
+                <i class='bx bxs-lock-alt' style="color: var(--primary-color); position: absolute; top: 50%; left: 15px; transform: translateY(-50%);"></i>
+                <input type="password" 
+                       placeholder="Password" 
+                       [(ngModel)]="loginData.password" 
+                       name="password" 
+                       [style.border-color]="errorMessage ? 'red' : 'var(--gray-2)'"
+                       style="background-color: var(--gray); border: 2px solid; border-radius: 25px; padding: 12px 45px 12px 45px; font-size: 16px; transition: all 0.3s ease; width: 100%; outline: none;"
+                       (focus)="errorMessage = ''">
+              </div>
+              
+              <button (click)="onLogin()" 
+                      style="background-color: var(--primary-color); color: var(--white); border-radius: 25px; padding: 12px; font-size: 16px; transition: all 0.3s ease; width: 100%; border: none; cursor: pointer;">
+                Sign in
+              </button>
+              
+              <p *ngIf="errorMessage" class="error-message" style="color: red; margin-top: 10px; margin-bottom: 15px; font-size: 18px;">
+                {{ errorMessage }}
+              </p>
+              
+              <p style="color: var(--gray-2);">
+                <b (click)="showForgotPassword()" class="pointer" style="color: var(--primary-color);">
+                  Forgot password?
+                </b>
+              </p>
+              
+              <p style="color: var(--gray-2);">
+                <span>Don't have an account?</span>
+                <b (click)="toggle()" class="pointer" style="color: var(--primary-color);">
+                  Sign up here
+                </b>
+              </p>
+                    <!-- Face ID Button -->
+  <div style="margin-top: 30px;">
+    <button
+      (click)="navigateToFaceId()"
+      style="background: none; border: none; cursor: pointer;"
+    ><!-- SVG Face ID icon -->
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#4A90E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M8 11c0-.6.4-1 1-1s1 .4 1 1"></path>
+        <path d="M15 11c0-.6.4-1 1-1s1 .4 1 1"></path>
+        <path d="M9 16c1.5 1 4.5 1 6 0"></path>
+      </svg>
+      <div style="margin-top: 8px; font-size: 16px; color: #4A90E2;">Login with Face ID</div>
+    </button>
   </div>
-</body>
-</html>
+            </div>
+          </div>
+        </div>
+        <!-- END SIGN IN -->
+    
+        <!-- FORGOT PASSWORD -->
+        <div *ngIf="isForgotPassword" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <!-- Close Button -->
+          <button (click)="isForgotPassword = false" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer;">
+            ✕
+          </button>
+        
+          <!-- Form Content -->
+          <div style="width: 90%; max-width: 400px; text-align: center;">
+            <h2 style="color: #dd9425; font-size: 28px; margin-bottom: 30px;">Reset Password</h2>
+            
+            <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+              <div style="margin-bottom: 20px; text-align: left;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email Address</label>
+                <input type="email" 
+                       [(ngModel)]="resetEmail" 
+                       placeholder="your@email.com"
+                       style="width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;">
+              </div>
+              
+              <button type="button" 
+                      (click)="onForgotPassword()"
+                      [disabled]="!resetEmail"
+                      style="width: 100%; background: #b7d33b; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer;">
+                Reset password
+              </button>
+              
+              <div *ngIf="message" 
+                   style="margin-top: 15px; padding: 10px; border-radius: 5px; 
+                          background: {{ message.includes('Error') ? '#ffebee' : '#e8f5e9' }};
+                          color: {{message.includes('Error') ? '#c62828' : '#2e7d32'}};">
+                {{ message }}
+              </div>
+              
+              <p style="margin-top: 20px; color: #666;">
+                Remember your password? 
+                <a (click)="isForgotPassword = false" style="color: #b7d33b; cursor: pointer;">Sign in</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- END FORGOT PASSWORD -->
+      </div>
+    
+      <!-- CONTENT SECTION -->
+      <div class="row content-row">
+        <div class="col align-items-center flex-col" style="order: 1;">
+          <div class="text sign-in" *ngIf="isSignIn && !isForgotPassword">
+            <h2>Welcome to our website</h2>
+          </div>
+          <div class="img sign-in" *ngIf="isSignIn && !isForgotPassword"></div>
+          
+          <div class="text forgot-password" *ngIf="isForgotPassword" style="text-align: left; margin-right: 200px;">
+            <h6>Reset your password</h6>
+          </div>
+          
+          <div class="img forgot-password" *ngIf="isForgotPassword"></div>
+        </div>
+        
+        <div class="col align-items-center flex-col" style="order: 2;">
+          <div class="img sign-up" *ngIf="!isSignIn"></div>
+          <div class="text sign-up" *ngIf="!isSignIn">
+            <h3>Join with us</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>

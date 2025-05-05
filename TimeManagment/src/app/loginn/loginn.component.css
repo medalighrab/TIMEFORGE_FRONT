@@ -1,0 +1,111 @@
+/* Fond de page dégradé jaune */
+body, .face-id-container {
+    background: linear-gradient(20deg, #ffb700, #ffe100);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Carte qui s’adapte à la webcam */
+  .face-id-form {
+    padding: 2rem;
+    background-color: var(--white, #fff);
+    border-radius: 1.5rem;
+    width: fit-content; /* La carte grandit avec le contenu */
+    max-width: 95vw;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Titre stylé avec dégradé jaune */
+  .face-id-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(20deg, #ffb700, #ffe100);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Conteneur webcam avec bordure arrondie */
+  .webcam-wrapper {
+    border-radius: 25px;
+    overflow: hidden;
+    border: 2px solid var(--gray-2, #ccc);
+    background-color: var(--gray, #efefef);
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Webcam grande taille */
+  webcam {
+    width: 640px; /* Taille réelle souhaitée */
+    height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* Bouton stylé comme login page */
+  .face-id-button {
+    background-color: var(--primary-color, #fdbe33);
+    color: var(--white, #fff);
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .face-id-button:hover {
+    background-color: #e5c100;
+  }
+  
+  .face-id-result {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--gray-2, #555);
+  }
+  
+  /* ✅ Responsive pour mobiles */
+  @media only screen and (max-width: 700px) {
+    webcam {
+      width: 100%;
+      height: auto;
+    }
+  
+    .face-id-form {
+      width: 90vw;
+    }
+  }
+
+
+  .back-to-login {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--gray-2, #555);
+  }
+  
+  .back-to-login .pointer {
+    color: var(--primary-color, #fdbe33);
+    cursor: pointer;
+    margin-left: 0.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  .back-to-login .pointer:hover {
+    color: #e5c100;
+  }
+  
+  

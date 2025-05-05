@@ -1,0 +1,116 @@
+.task-assignment-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .card-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5rem;
+  }
+  
+  .card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .card-body {
+    padding: 2rem;
+    background-color: white;
+  }
+  
+  .task-form .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .task-form label {
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .task-form .form-control {
+    border: 1px solid #dfe6e9;
+    border-radius: 4px;
+    padding: 0.75rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .task-form .form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+  }
+  
+  .task-form .is-invalid {
+    border-color: #e74c3c;
+  }
+  
+  .task-form .is-invalid:focus {
+    box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
+  }
+  
+  .invalid-feedback {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .form-row .form-group {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  .form-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  .btn-primary {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2980b9;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+  }
+  
+  .btn-secondary {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #bdc3c7;
+  }

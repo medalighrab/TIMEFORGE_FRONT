@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+
 export interface RegisterRequest {
   username: string;
   mail: string;
@@ -13,33 +14,52 @@ export interface RegisterRequest {
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
   private apiUrl = 'http://localhost:8089/auth'; 
 
-  constructor(private http: HttpClient) {}
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  public isLoggedIn$ = this.loggedIn.asObservable(); // observable à utiliser dans les composants
 
-  login(credentials: { username: string; password: string }) {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials);
+  constructor(private http: HttpClient) {}
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+      tap((response: any) => {
+        console.log('Token reçu:', response.token);
+        // ⚠️ Ici : tu dois bien stocker dans localStorage
+        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('refreshToken', response.refreshToken);
+      })
+    );
   }
+  
+
   register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data,{responseType: 'text'});
+    return this.http.post(`${this.apiUrl}/register`, data, { responseType: 'text' });
   }
-  saveToken(token: string) {
+
+  saveToken(token: string): void {
+    console.log('📦 Token sauvegardé :', token);
     localStorage.setItem('token', token);
+    this.loggedIn.next(true); // ✅ notifier que l’utilisateur est connecté
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
+    
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('token');
+    this.loggedIn.next(false); // ✅ notifier que l’utilisateur est déconnecté
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('refreshToken');
+    
   }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  hasToken(): boolean {
+    return !!localStorage.getItem('token');
   }
+
   getUsernameFromToken(): string | null {
     const token = this.getToken();
     if (!token) return null;
