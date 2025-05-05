@@ -10,14 +10,31 @@ import { StatsComponent } from './BackOffice/stats/stats.component';
 import { SettingsComponent } from './BackOffice/settings/settings.component';
 import { GoalsComponent } from './FrontOffice/goals/goals.component';
 import { HealthReminderComponent } from './FrontOffice/health-reminder/health-reminder.component';
+import { TaskComponent } from './FrontOffice/task/task.component';
 
 import { ListeComponent } from './BackOffice/tasks/liste/liste.component';
 import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.component';
+import { ChatComponent } from './chat/chat.component';
+import { TimeManagementTechniquesComponent } from './components/time-management-techniques/time-management-techniques.component';
+import { TimeTrackerComponent } from './components/time-tracker/time-tracker.component';
+import { CalendarIntegrationComponent } from './components/calendar-integration/calendar-integration.component';
+import { SmartPlannerComponent } from './smart-planner/smart-planner.component';
+import { RecommendationComponent } from './components/recommendation/recommendation.component';
 
 
 
 
 const routes: Routes = [
+  { path: 'smart-planner', component: SmartPlannerComponent },
+
+  { path: 'recommendation', component: RecommendationComponent },
+
+  { path: 'time-techniques', component: TimeManagementTechniquesComponent },
+  { path: '', redirectTo: 'time-techniques', pathMatch: 'full' },
+  { path: 'time-trackers', component: TimeTrackerComponent },
+  { path: '', redirectTo: 'time-trackers', pathMatch: 'full' },
+  { path: 'calendar', component: CalendarIntegrationComponent },
+  { path: '', redirectTo: 'calendar', pathMatch: 'full' },
   {
     path:"login",component:LoginComponent
   },
@@ -28,6 +45,9 @@ const routes: Routes = [
 
           {path:"", component:HomeFrontComponent},
           {path:"task", component:TaskemployeeComponent} ,
+          {
+            path:"chat/:userId",component:ChatComponent
+          },
     ]
   },
   {
@@ -37,9 +57,13 @@ const routes: Routes = [
 
         {path:"stats", component:StatsComponent} ,
         {path:"tasks", component:ListeComponent} ,
+        
        
         {path: "settings" , component:SettingsComponent}
     ]
+  },
+  {
+    path:"TasksList",component:TaskComponent
   },
   {
     path:"register",component:RegisterComponent
@@ -56,6 +80,7 @@ const routes: Routes = [
   {
     path:"health",component:HealthReminderComponent
   },
+  
  
   
 

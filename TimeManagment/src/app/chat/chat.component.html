@@ -1,0 +1,97 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list"  >
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;" (keyup)="filterTable()">
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0" *ngFor="let user of userList">
+                    <li class="clearfix" (click)="selectUser(user)">
+                      <img  src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar" >
+                        <div class="about">
+                            <div class="name">{{user.name}}</div>
+                            <div class="status" *ngIf="user.isOnline; else offlineStatus">
+                              <i class="fa fa-circle online"></i> En ligne
+                            </div>
+                            <ng-template #offlineStatus>
+                              <div class="status">
+                                <i class="fa fa-circle offline"></i> Hors ligne
+                              </div>
+                            </ng-template>                        </div>
+                    </li>
+                  
+                </ul>
+            </div>
+
+            
+           
+
+
+            <div class="chat_window" style="margin-top: 300px;">
+              <div class="top_menu">
+                <div class="buttons">
+                  <div class="button close"></div>
+                  <div class="button minimize"></div>
+                  <div class="button maximize"></div>
+                </div>
+                <div class="title">
+                  
+                  {{ selectedUserName || 'TimeManagement' }}
+                </div>
+              </div>
+              <ul class="messages">
+                <ng-container *ngFor="let item of messageList">
+                  <li *ngIf="item.message_side === 'sender'; else receiverMessage" class="message right">
+                    <div class="avatar">
+                      <img src="https://i.ibb.co/fqwF74t/customer-service.png" alt="avatar" height="80%">
+                    </div>
+                    <div class="text_wrapper">
+                      <div class="text">{{ item.message }}</div>
+                    </div>
+                  </li>
+                  <ng-template #receiverMessage>
+                    <li class="message left">
+                      <div class="avatar">
+                        <img src="https://i.ibb.co/fqwF74t/customer-service.png" alt="avatar" height="80%">
+                      </div>
+                      <div class="text_wrapper">
+                        <div *ngIf="item.File; else textMessage" class="image_wrapper">
+                          <img [src]="item.file" alt="image">
+                        </div>
+                        <ng-template #textMessage>
+                          <div class="text">{{ item.message }}</div>
+                          
+
+                        </ng-template>
+                      </div>
+                    </li>
+                  </ng-template>
+                </ng-container>
+              </ul>
+              <div class="bottom_wrapper clearfix">
+                <label for="fileInput" class="file_icon">
+                  <i class="bi bi-paperclip" style="cursor: pointer"></i>
+                </label>
+                <input id="fileInput" type="file" style="display: none" (change)="onFileSelected($event)" accept="image/*" />
+                <input class="message_input" class="message_input_wrapper" placeholder="Message..." [(ngModel)]="messageInput"
+                  (keyup.enter)="sendMessage()" />
+                <div class="send_message" (click)="sendMessage()">
+                  <div class="icon"></div>
+                  <div class="text">Send</div>
+                </div>
+              </div>
+            </div>
+            
+
+
+
+        </div>
+    </div>
+</div>
+</div>

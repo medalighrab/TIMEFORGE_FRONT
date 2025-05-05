@@ -1,0 +1,80 @@
+<app-header-front></app-header-front>
+
+<div class="tracker-container">
+  <h2>⏱️ Gestion des Sessions de Travail</h2>
+
+  <!-- Formulaire -->
+  <form (ngSubmit)="save()" class="tracker-form">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Titre de la Session :</label>
+        <input [(ngModel)]="form.title" name="title" required placeholder="Ex: Révision chapitre 5" />
+      </div>
+
+      <div class="form-group">
+        <label>Description :</label>
+        <input [(ngModel)]="form.description" name="description" required placeholder="Ex: Lecture approfondie" />
+      </div>
+
+      <div class="form-group">
+        <label>Durée Estimée (minutes) :</label>
+        <input [(ngModel)]="form.estimatedMinutes" name="estimatedMinutes" type="number" required />
+      </div>
+
+      <div class="form-group">
+        <label>Heure de début :</label>
+        <input [(ngModel)]="form.startTime" name="startTime" type="time" required />
+      </div>
+      
+
+      <div class="form-group">
+        <label>Priorité :</label>
+        <select [(ngModel)]="form.priority" name="priority" class="form-control" required>
+          <option value="" disabled>Choisir une priorité</option>
+          <option value="Haute">Haute</option>
+          <option value="Moyenne">Moyenne</option>
+          <option value="Basse">Basse</option>
+        </select>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="form.completed" name="completed" />
+          Session terminée
+        </label>
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-buttons">
+      <button type="submit" class="save-button">{{ editingId ? '✅ Modifier' : '➕ Ajouter' }}</button>
+      <button type="button" (click)="cancel()" class="cancel-button" *ngIf="editingId">❌ Annuler</button>
+    
+
+      <button type="button" (click)="analyzeRisk()" class="risk-button">🧠 Analyser le Risque </button>
+    </div>
+  </form>
+
+  <hr />
+
+  <!-- Liste des Sessions -->
+  <div class="sessions-grid" *ngIf="trackers.length > 0; else noData">
+    <div *ngFor="let tracker of trackers" class="session-card">
+      <div class="session-header">
+        <h3>{{ tracker.title }}</h3>
+        <small>{{ tracker.estimatedMinutes }} min</small>
+      </div>
+      <p><strong>Description :</strong> {{ tracker.description }}</p>
+      <p><strong>État :</strong> {{ tracker.completed ? '✅ Terminé' : '⏳ En cours' }}</p>
+
+      <div class="card-actions">
+        <button (click)="edit(tracker)" class="edit-button">✏️ Modifier</button>
+        <button (click)="delete(tracker.id!)" class="delete-button">🗑️ Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p class="no-data">⚠️ Aucune session de travail encore créée.</p>
+  </ng-template>
+</div>
