@@ -1,0 +1,804 @@
+@mixin tree-view-lines($elem-height) {
+  margin-left: 15px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -10px;
+    width: 1px;
+    height: calc(#{$elem-height} + 10px);
+    background-color: #c7d3df;
+  }
+
+  &:last-child::after {
+    height: calc(#{$elem-height} / 2 + 5px);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(#{$elem-height} / 2);
+    left: -10px;
+    width: 8px;
+    height: 1px;
+    background-color: #c7d3df;
+  }
+
+  &[open]:not(:last-child)::after {
+    height: calc(100% + 5px);
+  }
+}
+
+@mixin big-blue {
+  color: white;
+  padding: 8px;
+  background-color: #174378;
+  border: 1px solid #174378;
+  border-radius: 3px;
+
+  &::-webkit-details-marker {
+    margin-right: 14px;
+  }
+}
+
+@mixin small-grey {
+  margin: 5px 0;
+  padding: 5px 10px;
+  background-color: #dfe7ec;
+  border: 1px solid #c7d3df;
+  border-radius: 3px;
+  color: #545f69;
+  position: relative;
+
+  span {
+    color: #041320;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-family: sans-serif;
+  max-width: 350px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body > details {
+  width: 100%;
+  margin-bottom: 10px;
+
+  summary {
+    @include big-blue;
+  }
+
+  > details {
+    margin: 5px 0;
+    @include tree-view-lines(36px);
+
+    summary {
+      @include big-blue;
+    }
+
+    > details {
+      margin: 5px 0;
+      @include tree-view-lines(28px);
+
+      summary {
+        @include small-grey;
+      }
+    }
+  }
+}
+details > summary {
+  @include big-blue;
+  display: list-item; 
+  max-width: 90%;
+  margin-left: 20px;
+  
+}
+
+// Ensure child details inside details get correct spacing
+details details summary {
+  @include small-grey;
+  max-width: 90%;
+  margin-left: 20px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  max-width: 90%;
+  margin-left: 20px;
+}
+
+li {
+  @include small-grey;
+  @include tree-view-lines(28px);
+}
+.goal-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.duration {
+  margin-left: 120px;
+  color: #000; /* Couleur du texte */
+  font-size: 14px; /* Taille de la police */
+  font-weight: bold; /* Gras si nécessaire */
+}
+
+.task-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Create a responsive grid */
+  gap: 20px; /* Space between tasks */
+  background-color: transparent;
+}
+
+.task {
+  padding-top: 10px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+.Done {
+  color: green;  /* Green for Done */
+}
+
+.InProgress {
+  color: #00bfff;  
+}
+.delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ff4d4d; /* Rouge */
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%; /* Cercle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0;
+  margin: 5px;
+}
+
+.delete-button:hover {
+  background-color: #cc0000; /* Rouge foncé au survol */
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 25px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(25px);
+}
+
+
+/* Conteneur global */
+.translation-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Titre de la section */
+.translation-container h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Zone de saisie */
+.translation-container textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+
+.translation-container textarea:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 8px rgba(102,175,233,0.6);
+}
+
+/* Bouton */
+.translation-container button {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.translation-container button:hover {
+  background-color: #218838;
+}
+
+.translation-container button:active {
+  transform: scale(0.97);
+}
+
+/* Zone d’affichage du résultat */
+.translation-container h4 {
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  color: #555;
+}
+
+.translation-container p {
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border-left: 4px solid #28a745;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  white-space: pre-wrap; /* pour conserver les sauts de ligne */
+}
+// src/app/FrontOffice/goals/goals.component.scss
+
+.translation-container {
+  // on masque le <p> original pour ne plus voir { ... }
+  p {
+    display: none;
+  }
+
+  // on ajoute un style à la place, sur notre nouveau bloc
+  .translated-output {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fa;
+    border-left: 4px solid #4CAF50;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    white-space: pre-wrap;
+  }
+}
+
+
+
+
+
+
+//drawer traduction
+//* Overlay doux avec flou léger */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  background-color: rgba(200, 200, 200, 0.2);
+  z-index: 998;
+}
+
+/* Drawer doux avec couleurs pastel/gris clair */
+.custom-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 420px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1);
+  transition: right 0.4s ease-in-out;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.custom-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  padding: 1.2rem;
+  background: rgba(245, 245, 245, 0.9);
+  color: #222;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.drawer-body {
+  padding: 1.5rem;
+  color: #444;
+  overflow-y: auto;
+}
+
+/* Champs */
+input.form-control,
+textarea.form-control,
+select.form-control {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  color: #333;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+input.form-control:focus,
+textarea.form-control:focus,
+select.form-control:focus {
+  border-color: #90caf9; /* Bleu pastel doux */
+  background: #ffffff;
+}
+
+/* Boutons doux et fluides */
+button.btn {
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #90caf9; /* Bleu ciel pastel */
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+button.btn:hover {
+  background-color: #64b5f6;
+  transform: translateY(-1px);
+}
+
+/* Bouton fermeture */
+.btn-close {
+  font-size: 1.3rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s;
+}
+
+.btn-close:hover {
+  color: #e57373; /* Rouge clair pastel */
+}
+
+/* Zone de traduction */
+.translated-output {
+  white-space: pre-wrap;
+  padding: 1rem;
+  border-radius: 10px;
+  background: #f0f4f8;
+  border: 1px solid #e0e0e0;
+  color: #333;
+  font-style: italic;
+}
+
+.translation-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.2rem 1.5rem 0 1.5rem;
+}
+
+.btn-translate {
+  padding: 0.6rem 1.4rem;
+  background: #d0d8e5;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-translate:hover {
+  background: #c0c8d8;
+  transform: translateY(-2px);
+}
+
+/* Drawer Container */
+.custom-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Drawer Open state */
+.custom-drawer.open {
+  right: 0;
+}
+
+/* Drawer Header */
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Close button */
+.btn-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-close:hover {
+  transform: rotate(90deg);
+}
+
+/* Drawer Body */
+.drawer-body {
+  padding: 20px;
+  overflow-y: auto;
+  height: calc(100% - 60px); /* Adjust based on header height */
+}
+
+/* Labels */
+label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Form Controls */
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Prediction Block */
+.drawer-body > div {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.drawer-body > div h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Close Button in the Drawer */
+button.btn-danger {
+  margin-top: 10px;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+  .custom-drawer {
+    width: 100%;
+  }
+
+  .drawer-body {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
+
+
+
+/* Style pour le conteneur du graphique */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Ajustez la taille du graphique selon vos besoins */
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style du titre du graphique */
+.chart-title {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Style pour l'élément canvas */
+#myChart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Media Query pour les écrans plus petits */
+@media (max-width: 768px) {
+  .chart-container {
+    height: 300px; /* Ajuste la taille du graphique sur mobile */
+  }
+
+  .chart-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Style des bordures du graphique */
+.chart-border {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+/* Ajoutez une animation au graphique lorsqu'il se charge */
+.chart-animation {
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Animation pour faire apparaître le graphique */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+.predict-goal-btn {
+  position: fixed; /* fixé sur l'écran */
+  top: 20px; /* distance du haut */
+  left: 20px; /* distance de la gauche */
+  background-color: #007bff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+  z-index: 9999; /* pour être au-dessus de tout */
+}
+
+.predict-goal-btn .button-text {
+  position: absolute;
+  opacity: 0;
+  white-space: nowrap;
+  color: white;
+  font-size: 14px;
+  background-color: #007bff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: opacity 0.3s ease;
+  top: -40px; /* Afficher au-dessus du bouton */
+  left: 0;
+}
+
+.predict-goal-btn .icon {
+  transition: transform 0.3s ease;
+}
+
+/* Effet au hover */
+.predict-goal-btn:hover {
+  background-color: #0056b3;
+  width: 60px;
+  height: 60px;
+}
+
+.predict-goal-btn:hover .icon {
+  transform: scale(1.3); /* Agrandir l'icône */
+}
+
+.predict-goal-btn:hover .button-text {
+  opacity: 1; /* Afficher le texte */
+}
+.pdf-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1em; /* Diminue la taille du texte et de l'icône */
+  margin-left: 6px;
+  padding: 0.2px; /* Réduction de l'espace autour du contenu */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+
+
+
+/* Style spécifique pour l'icône de lecture (baffle) */
+.read-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+  background-color: #f0f4f8;
+  border: 1px solid #c7d3df;
+  border-radius: 50%;
+  color: #174378;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #dfe7ec;
+    transform: scale(1.1);
+    color: #041320;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  /* Style pour l'emoji baffle */
+  &::after {
+    content: "🔈";
+    font-size: 12px;
+  }
+}
+
+/* Style pour le bouton de lecture dans la description traduite */
+li em + .read-button {
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* Style spécifique pour le mode sombre si nécessaire */
+@media (prefers-color-scheme: dark) {
+  .read-button {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+    
+    &:hover {
+      background-color: #4a5568;
+    }
+  }
+}

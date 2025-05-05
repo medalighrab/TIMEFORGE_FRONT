@@ -1,0 +1,78 @@
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a [routerLink]="['/']" class="logo">
+            <h1>Timeforge</h1>
+          </a>
+          <!-- ***** Logo End ***** -->
+
+          <!-- ***** Menu Start ***** -->
+          <ul class="nav">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="properties.html">project</a></li>
+            <li><a [routerLink]="['/TasksList']">Task</a></li>
+            <li><a [routerLink]="['/goals']">Goals</a></li>
+            <li *ngIf="!isLogged"><a [routerLink]="['/login']" routerLinkActive="active">Login</a></li>
+            <li *ngIf="isLogged"><a (click)="logout()" role="button">Logout</a></li>
+            <li>
+              <div style="margin-top: 15px;">
+                <a class="nav-link" [routerLink]="['/chat', userId]">
+                  <div class="bell-container">
+                    <i class="bi bi-messenger"></i>
+                  </div>
+                </a>
+              </div>
+            
+            </li>
+<!-- Reminder dropdown -->
+<li class="nav-item dropdown" (click)="toggleNotification()">
+  <div class="bell-container">
+    <i class="bi bi-bell"></i>
+    <span *ngIf="newNotificationCount > 0" class="notification-badge">{{ newNotificationCount }}</span>
+  </div>
+  <div *ngIf="showNotification" class="dropdown-menu dropdown-menu-left show" aria-labelledby="navbarDropdown">
+    <div class="notification">
+      <div class="notification-header">
+        <h3 class="notification-title">New notification</h3>
+        <i class="fa fa-times notification-close" (click)="closeNotification($event)"></i>
+      </div>
+      <div class="notification-container" *ngFor="let i of combinedReminders">
+        <div class="notification-media">
+          <!-- Check if the reminder is from Healthreminders or reminders list using the source property -->
+          <img *ngIf="i.source === 'healthReminder'" 
+          src="https://i.ibb.co/gZTH51PN/pngtree-pause-vector-icon-png-image-3876297.jpg" 
+          alt="Health Reminder" class="notification-user-avatar">
+          <img *ngIf="i.source === 'reminder'" 
+          src="https://i.ibb.co/27S685Bv/portable-calendar-check-mark-completed-task-event-approval-checklist-done-logo-time-management-line.webp" 
+          alt="Other Reminder" class="notification-user-avatar">
+          <i class="fa fa-thumbs-up notification-reaction"></i>
+        </div>
+        <div class="notification-content">
+          <p class="notification-text">
+            <strong>{{i.typeReminder || i.title}}</strong>
+          </p>
+          <p>{{i.description || i.goal?.title}}</p>
+          <span class="notification-timer">a few seconds ago</span>
+        </div>
+        <span class="notification-status"></span>
+      </div>
+    </div>
+  </div>
+</li>
+
+
+</ul>
+<a class="menu-trigger">
+<span>Menu</span>
+</a>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->

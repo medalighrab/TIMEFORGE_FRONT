@@ -1,0 +1,96 @@
+<app-header-front></app-header-front>
+
+<!-- Main Container -->
+<div class="task-container">
+  <!-- Loop through tasks -->
+  <div *ngFor="let task of goals" class="task">
+    <details open>
+      <summary>{{ task.name }}</summary>
+
+      <!-- Loop through goals -->
+      <div *ngFor="let goal of task.goals">
+        <details open>
+          <summary>
+            {{ goal.title }}
+            <span *ngIf="goal.starDate && goal.endDate" class="duration">
+              {{ calculateDuration(goal.starDate, goal.endDate) }}
+            </span>
+            <div class="action-buttons">
+              <!-- Delete goal -->
+              <button (click)="deleteGoal(goal.id); $event.stopPropagation()" class="delete-button">×</button>
+
+              <!-- Download PDF report -->
+              <button (click)="downloadPdf(goal.id)" class="pdf-button" title="Télécharger le rapport PDF">
+                📄
+              </button>
+
+              <!-- Toggle chronic -->
+              <label class="toggle-switch">
+                <input type="checkbox" [checked]="goal.chronicActive" (change)="toggleChronic(goal)">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </summary>
+
+             <!-- Goal Details -->
+             <ul>
+              <li>
+                <span>Description:</span> {{ goal.description }}
+                <button (click)="readScript(goal); $event.stopPropagation()" class="read-button" title="Lire la description">
+                  🔈
+                </button>
+              </li>
+              <li><span>Date de début:</span> {{ formatDate(goal.starDate) }}</li>
+              <li><span>Date de fin:</span> {{ formatDate(goal.endDate) }}</li>
+  
+              <!-- Translate Button -->
+              <li>
+                <button class="btn btn-sm btn-outline-primary" (click)="translateGoalDescription(goal)">
+                  Traduire la description
+                </button>
+              </li>
+  
+              <!-- Translated Description -->
+              <li *ngIf="translatedDescriptions[goal.id]">
+                <strong>Description traduite :</strong><br>
+                <em>{{ translatedDescriptions[goal.id] }}</em>
+                <button (click)="readScript(goal, translatedDescriptions[goal.id]); $event.stopPropagation()" 
+                        class="read-button" title="Lire la traduction">
+                  🔈
+                </button>
+            </li>
+
+          </ul>
+        </details>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- Prediction Section -->
+<div style="text-align: center; margin-bottom: 20px;">
+  <button (click)="predictGoal()" class="predict-goal-btn" title="Prédire un nouveau Goal">
+    <span class="icon">🎯</span>
+    <span class="button-text">Prédire un nouveau Goal</span>
+  </button>
+
+  <!-- Custom Drawer -->
+  <div class="custom-drawer" [class.open]="isDrawerOpen">
+    <div class="drawer-header">
+      <button class="btn-close" (click)="closeDrawer()">×</button>
+    </div>
+
+    <div class="drawer-body">
+      <div *ngIf="prediction" style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 8px;">
+        <h3>Résultat de la Prédiction 🎯</h3>
+        <p *ngIf="prediction.start_date"><strong>Date de Début :</strong> {{ prediction.start_date }}</p>
+        <p *ngIf="prediction.end_date"><strong>Date de Fin :</strong> {{ prediction.end_date }}</p>
+        <p *ngIf="prediction.title"><strong>Objectif proposé :</strong> {{ prediction.title }}</p>
+        <p *ngIf="prediction.description"><strong>Description proposée :</strong> {{ prediction.description }}</p>
+      </div>
+
+      <!-- Close Button -->
+      <button class="btn btn-danger mt-2" (click)="closeDrawer()">Fermer</button>
+    </div>
+  </div>
+</div>

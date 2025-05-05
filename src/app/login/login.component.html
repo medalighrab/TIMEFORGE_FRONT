@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- Source Codes By CodingNepal - www.codingnepalweb.com -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login to TimeForge </title>
+  
+</head>
+<body>
+  <div class="login_form">
+    <!-- Login form container -->
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <h3>Log to TimeForge</h3>
+    
+      <div class="input_box">
+        <label>Email</label>
+        <input formControlName="mail" type="email" placeholder="Enter email address" />
+        <div *ngIf="loginForm.get('mail')?.invalid && loginForm.get('mail')?.touched">
+          <small >Email invalide</small>
+        </div>
+      </div>
+    
+      <div class="input_box">
+        <label>Mot de passe</label>
+        <input formControlName="password" type="password" placeholder="Enter your password" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <small >Mot de passe requis</small>
+        </div>
+      </div>
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+    
+      <p *ngIf="errorMessage" >{{ errorMessage }}</p>
+    </form>
+    <div class="text">
+      <h3>Create an account? <a routerLink="/register">Register </a></h3>
+    </div>
+  </div>
+</body>
+</html>

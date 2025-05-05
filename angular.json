@@ -25,9 +25,33 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/BackOffice/vendor/fontawesome-free/css/all.min.css",
+              "src/assets/BackOffice/assets/css/sb-admin-2.min.css",
+              "src/assets/FrontOffice/assets/css/animate.css",
+              "src/assets/FrontOffice/assets/css/fontawesome.css",
+              "src/assets/FrontOffice/assets/css/templatemo-villa-agency.css",
+              "src/assets/BackOffice/assets/css/sb-admin-2.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+
+              
+              
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/FrontOffice/vendor/jquery/jquery.min.js",
+              "src/assets/FrontOffice/vendor/bootstrap/js/bootstrap.min.js",
+              "src/assets/FrontOffice/assets/js/isotope.min.js",
+              "src/assets/FrontOffice/assets/js/owl-carousel.js",
+              "src/assets/FrontOffice/assets/js/counter.js",
+              "src/assets/FrontOffice/assets/js/custom.js",
+              
+              "src/assets/BackOffice/vendor/jquery-easing/jquery.easing.min.js",
+              "src/assets/BackOffice/assets/js/sb-admin-2.min.js",
+              "src/assets/BackOffice/vendor/chart.js/Chart.min.js",
+              "src/assets/BackOffice/assets/js/demo/chart-area-demo.js",
+              "src/assets/BackOffice/assets/js/demo/chart-pie-demo.js"
+            ]
           },
           "configurations": {
             "production": {

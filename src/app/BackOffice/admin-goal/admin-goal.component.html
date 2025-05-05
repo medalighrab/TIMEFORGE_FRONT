@@ -1,0 +1,62 @@
+<div class="container">
+    <h2>Gestion des Objectifs</h2>
+  
+    <!-- Formulaire d'ajout d'un objectif -->
+    <div class="form-group">
+      <label for="goalTitle">Titre de l'Objectif</label>
+      <input type="text" id="goalTitle" class="form-control" [(ngModel)]="newGoal.title" placeholder="Entrez le titre de l'objectif">
+    </div>
+  
+    <div class="form-group">
+      <label for="goalDescription">Description de l'Objectif</label>
+      <textarea id="goalDescription" class="form-control" [(ngModel)]="newGoal.description" placeholder="Entrez la description de l'objectif"></textarea>
+    </div>
+  
+    <!-- Sélectionner la tâche associée -->
+    <div class="form-group">
+      <label for="taskSelect">Sélectionner une Tâche</label>
+      <select id="taskSelect" class="form-control" [(ngModel)]="selectedTaskId">
+        <option value="0" disabled>Sélectionner une tâche</option>
+        <option *ngFor="let task of tasks" [value]="task.id">{{ task.name }}</option>
+      </select>
+    </div>
+  
+    <!-- Dates de début et de fin -->
+    <div class="form-group">
+      <label for="goalStartDate">Date de Début</label>
+      <input type="date" id="goalStartDate" class="form-control" [(ngModel)]="newGoal.startDate">
+    </div>
+  
+    <div class="form-group">
+      <label for="goalEndDate">Date de Fin</label>
+      <input type="date" id="goalEndDate" class="form-control" [(ngModel)]="newGoal.endDate">
+    </div>
+  
+    <button class="btn btn-primary" (click)="addGoal()">Ajouter un Objectif</button>
+  
+    <!-- Liste des objectifs -->
+    <h3>Liste des Objectifs</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Date de Début</th>
+          <th>Date de Fin</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let goal of goals">
+          <td>{{ goal.title }}</td>
+          <td>{{ goal.description }}</td>
+          <td>{{ goal.startDate ? (goal.startDate | date : 'shortDate') : 'Non défini' }}</td>
+          <td>{{ goal.endDate ? (goal.endDate | date : 'shortDate') : 'Non défini' }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteGoal(goal.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

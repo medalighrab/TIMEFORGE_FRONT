@@ -1,0 +1,111 @@
+<div class="container mt-4">
+    <div *ngIf="projects.length === 0" class="alert alert-warning text-center">
+      Aucun projet trouvé.
+    </div>
+  
+    <div class="row">
+      <div *ngFor="let project of projects" class="col-md-12 mb-4 me-2 ml-2">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Projet #{{ project.projectid }}</h5>
+  
+            <ng-container *ngIf="!showTasks[project.projectid]; else taskCards">
+              <p><strong>Nom :</strong> {{ project.name ? project.name :"Null" }}</p>
+              <p><strong>Description :</strong> {{ project.description ? project.description :"Null"  }}</p>
+              <p><strong>Date limite :</strong>   {{ project.deadline ? (project.deadline | date: 'mediumDate') : 'Aucune date' }}</p>
+              <p><strong>Cahier des charges :</strong> {{ project.cahiercharge ? project.cahiercharge :"Null"  }}</p>
+              <p><strong>Nombre de tâches :</strong>
+                <span class="badge bg-info text-dark">{{ project.taskss.length }}</span>
+              </p>
+  
+            <div class="d-flex justify-content-center align-items-center ">
+              <button class="btn btn-outline-primary me-2" (click)="toggleTasks(project.projectid)">
+                Voir les tâches
+              </button>
+              <button class="btn btn-outline-success" (click)="toggleTaskForm(project.projectid)">
+                Ajouter une tâche
+              </button>
+            </div>
+            </ng-container>
+  
+            <ng-template #taskCards>
+                <div class="row">
+                  <ng-container *ngIf="project.taskss.length > 0; else noTasks">
+                    <div *ngFor="let task of project.taskss" class="col-md-6 mb-3">
+                      <div class="card border-info shadow-sm">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ task.name }}</h5>
+                          <p><strong>Employee :</strong> {{ task.employee11?.username }}</p>
+                          <p><strong>Description :</strong> {{ task.description }}</p>
+                          <p><strong>Status :</strong> {{ task.status }}</p>
+                          <p><strong>Duration :</strong>
+                            <span class="badge bg-info text-dark">{{ task.durationInDays }}Jrs</span>
+                          <!-- <p><strong>Priorité :</strong> {{ task.priority }}</p> -->
+                          <p><strong>Date début :</strong> {{ task.startDate | date:'shortDate' }}</p>
+                          <p><strong>Deadline :</strong> {{ task.deadline | date:'shortDate' }}</p>
+                          <div class="mt-2">
+                            <button class="btn btn-sm btn-warning me-2" (click)="editTask(task, project.projectid)">Modifier</button>
+                            <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id!, project.projectid)">Supprimer</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+              
+                  <ng-template #noTasks>
+                    <div class="col-12 text-center text-muted mt-3">
+                      <p>Aucune tâche disponible pour ce projet.</p>
+                    </div>
+                  </ng-template>
+                </div>
+              
+                <div class="text-center mt-3">
+                  <button class="btn btn-secondary" (click)="toggleTasks(project.projectid)">Retour au projet</button>
+                </div>
+              </ng-template>
+              
+            <div *ngIf="showTaskForm[project.projectid]" class="mt-3 border p-3 rounded bg-light">
+              <form [formGroup]="taskForm" (ngSubmit)="onSubmit(project.projectid)">
+                <div class="mb-2">
+                  <label>Nom:</label>
+                  <input formControlName="name" class="form-control" />
+                </div>
+                <div class="mb-2">
+                  <label>Description:</label>
+                  <textarea formControlName="description" class="form-control"></textarea>
+                </div>
+            
+                <div class="mb-2">
+                  <label>Employee:</label>
+                  <select class="form-control"   (change)="onEmployeeChange($event)" >
+                    <option value="" disabled selected>-- Sélectionner un employé --</option>
+                    <option *ngFor="let employee of employees" [value]="employee.idUser">
+                      {{ employee.username }}
+                    </option>
+                  </select>
+                </div>
+                <!-- <div class="mb-2">
+                  <label>Priorité:</label>
+                  <input type="number" formControlName="priority" class="form-control" />
+                </div> -->
+                <div class="mb-2">
+                  <label>Date de début:</label>
+                  <input type="date" formControlName="startDate" class="form-control" />
+                </div>
+                <div class="mb-2">
+                  <label>Date limite:</label>
+                  <input type="date" formControlName="deadline" class="form-control" />
+                </div>
+  
+                <button type="submit" class="btn btn-success me-2">
+                  {{ isEdit ? 'Mettre à jour' : 'Ajouter' }}
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="toggleTaskForm(project.projectid)">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
