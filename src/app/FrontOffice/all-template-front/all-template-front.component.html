@@ -1,14 +1,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="/assets/FrontOffice/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/assets/FrontOffice/assets/css/fontawesome.css">
-<link rel="stylesheet" href="/assets/FrontOffice/assets/css/templatema-villa-agency.css">
+<!-- <link rel="stylesheet" href="/assets/FrontOffice/assets/css/templatema-villa-agency.css"> -->
 <link rel="stylesheet" href="/assets/FrontOffice/assets/css/owl.css">
 <link rel="stylesheet" href="/assets/FrontOffice/assets/css/animate.css">
 <link rel="stylesheet" href="https://unpkg.com/antper@latest/awdnen-bundle.min.css">
-
 <app-header-front></app-header-front>
 <router-outlet></router-outlet>
+<app-gamification-badge *ngIf="isLogged"></app-gamification-badge>
+<app-chatbot *ngIf="isLogged"></app-chatbot>
+
 <app-footer-front></app-footer-front>
+
+
 <script src="/assets/FrontOffice/vendor/jquery/jquery.min.js"></script>
 <script src="/assets/FrontOffice/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/FrontOffice/assets/js/isotope.min.js"></script>

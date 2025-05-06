@@ -1,0 +1,84 @@
+<div class="main bg-light min-vh-100 py-4">
+    <div class="container">
+      <!-- Header Section -->
+      <div class="row mb-5">
+        <div class="col-12 text-center">
+          <h1 class="text-dark font-weight-bold">Historique des Tâches</h1>
+          <p class="text-muted">Suivi des projets et de leurs évolutions</p>
+        </div>
+      </div>
+  
+      <div class="row gy-4">
+        <ng-container *ngIf="tasks.length > 0; else noTasks">
+          <div *ngFor="let task of tasks" class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-lg rounded-4 hover-shadow">
+              <div class="card-header bg-primary text-white rounded-top-4">
+                <strong><i class="fas fa-project-diagram me-2"></i> {{ task.project.name }}</strong>
+              </div>
+  
+              <div class="card-body">
+                <h5 class="card-title text-dark">
+                  <i class="fas fa-thumbtack me-2"></i> {{ task.name }}
+                </h5>
+                <p class="mb-1"><strong>Description :</strong> {{ task.description }}</p>
+                <p class="mb-1">
+                  <strong>Statut :</strong>
+                  <span class="badge bg-{{ 
+                      task.status === 'TODO' ? 'secondary' : 
+                      task.status === 'IN_PROGRESS' ? 'warning' : 
+                      task.status === 'DONE_RETARD' ? 'danger' : 
+                      'success' 
+                  }}">
+                    {{ task.status }}
+                  </span>
+                </p>
+                <p class="mb-1">
+                  <strong>Durée :</strong>
+                  <span class="badge bg-light text-dark border">{{ task.durationInDays }} jours</span>
+                </p>
+                <p class="mb-1" *ngIf="task.estimatedHours">
+                  <strong>Durée réelle:</strong>
+                  <span class="badge bg-dark text-white border">{{ task.estimatedHours }} hrs</span>
+                </p>
+                <p class="mb-1">
+                  <strong>Estimation initiale:</strong>
+                  <span class="badge bg-dark text-white border">{{ task.durationInDays * 8 }} hrs</span>
+                </p>
+                <p class="mb-1" *ngIf="task.estimatedHours">
+                  <strong *ngIf="(task.durationInDays * 8 - task.estimatedHours) <= 0">Retard par:</strong>
+                  <strong *ngIf="(task.durationInDays * 8 - task.estimatedHours) > 0">Pas de retard:</strong>
+                  <span class="badge"
+                        [ngClass]="{
+                          'bg-danger text-white': (task.durationInDays * 8 - task.estimatedHours) <= 0,
+                          'bg-warning text-dark': (task.durationInDays * 8 - task.estimatedHours) > 0 && (task.durationInDays * 8 - task.estimatedHours) <= 8,
+                          'bg-success text-white': (task.durationInDays * 8 - task.estimatedHours) > 8
+                        }">
+                    {{ (task.durationInDays * 8 - task.estimatedHours) | number:'1.0-0' }} hrs
+                  </span>
+                </p>
+                <p class="mb-1"><strong>Date début :</strong> {{ task.startDate | date:'shortDate' }}</p>
+                <p class="mb-1"><strong>Date limite :</strong> {{ task.deadline | date:'shortDate' }}</p>
+              </div>
+  
+              <div class="card-footer bg-light text-end rounded-bottom-4">
+                <button class="btn btn-sm btn-outline-warning ms-2" (click)="archiveTask(task)">
+                  <i class="fas fa-archive me-1"></i> {{ task.isdeleted ? "Dans l'archive" : "Archiver" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+  
+        <!-- No Tasks Available -->
+        <ng-template #noTasks>
+          <div class="col-12 text-center text-muted">
+            <p class="mt-3">
+              <i class="fas fa-folder-open fa-3x mb-3"></i><br />
+              <span class="h5">Aucune tâche disponible.</span>
+            </p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  

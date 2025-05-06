@@ -1,0 +1,14 @@
+<div class="gamification-badge shadow">
+  <div class="badge-header">
+    <img [src]="getBadgeImage(gamificationProfile?.level || 1)" alt="badge" />
+
+    <div class="badge-info1">
+      <span class="level-text">
+        Niveau {{ gamificationProfile?.level ? gamificationProfile.level : 1 }}
+      </span>
+      <span class="xp-text">
+        ⭐ {{ gamificationProfile?.xp ? gamificationProfile.xp : 0 }} XP
+      </span>
+    </div>
+  </div>
+</div>

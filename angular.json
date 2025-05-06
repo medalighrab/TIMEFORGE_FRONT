@@ -31,9 +31,7 @@
               "src/assets/FrontOffice/assets/css/animate.css",
               "src/assets/FrontOffice/assets/css/fontawesome.css",
               "src/assets/FrontOffice/assets/css/templatemo-villa-agency.css",
-              "src/assets/BackOffice/assets/css/sb-admin-2.min.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
-
+              "src/assets/BackOffice/assets/css/sb-admin-2.min.css"
               
               
             ],

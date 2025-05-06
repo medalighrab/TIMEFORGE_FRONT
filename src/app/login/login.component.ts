@@ -32,12 +32,12 @@ export class LoginComponent  implements OnInit {
       next: (res) => {
         this.authService.saveToken(res.accessToken);
         if (res.role === 'ROLE_ADMIN') {
-         window.location.href ='/admin/tasks';
+         window.location.href ='/admin/projets';
         }else if (res.role === 'ROLE_EMPLOYEE') {
          window.location.href ='/task';
         }
         else if (res.role === 'ROLE_TEAMLEAD') {
-         window.location.href ='/admin/tasks';
+         window.location.href ='/admin/projets';
         }
        
         console.log(res);        

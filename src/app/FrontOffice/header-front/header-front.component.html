@@ -12,63 +12,33 @@
 
           <!-- ***** Menu Start ***** -->
           <ul class="nav">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="properties.html">project</a></li>
-            <li><a [routerLink]="['/TasksList']">Task</a></li>
-            <li><a [routerLink]="['/goals']">Goals</a></li>
+            <li *ngIf="!isLogged"><a [routerLink]="['/']" routerLinkActive="active">Home</a></li>
+            <li *ngIf="!isLogged"><a [routerLink]="['/properties']" routerLinkActive="active">Properties</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/task']" routerLinkActive="active">Task</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/historique']" routerLinkActive="active">Archive</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/stat']" routerLinkActive="active">Stat</a></li>
+            <li *ngIf="isLogged"><a [routerLink]="['/game']" routerLinkActive="active">Game</a></li>
+            <li><a [routerLink]="['/goals']" routerLinkActive="active">Goals</a></li>
+            <li><a [routerLink]="['/health']" routerLinkActive="active">Health Reminder</a></li>
             <li *ngIf="!isLogged"><a [routerLink]="['/login']" routerLinkActive="active">Login</a></li>
             <li *ngIf="isLogged"><a (click)="logout()" role="button">Logout</a></li>
-            <li>
-              <div style="margin-top: 15px;">
-                <a class="nav-link" [routerLink]="['/chat', userId]">
-                  <div class="bell-container">
-                    <i class="bi bi-messenger"></i>
-                  </div>
-                </a>
-              </div>
-            
+
+            <!-- Reminder dropdown (s'affiche quand connecté) -->
+            <li class="dropdown" [class.open]="showDropdown" (click)="toggleDropdown()">
+              <a class="dropdown-toggle">
+                <i class="fa fa-calendar"></i> Reminder
+              </a>
+              <ul *ngIf="showDropdown" class="dropdown-menu">
+                <li *ngFor="let reminder of reminders" class="dropdown-item">
+                  <a>{{ reminder.title }} - {{ reminder.description }}</a>
+                </li>
+              </ul>
             </li>
-<!-- Reminder dropdown -->
-<li class="nav-item dropdown" (click)="toggleNotification()">
-  <div class="bell-container">
-    <i class="bi bi-bell"></i>
-    <span *ngIf="newNotificationCount > 0" class="notification-badge">{{ newNotificationCount }}</span>
-  </div>
-  <div *ngIf="showNotification" class="dropdown-menu dropdown-menu-left show" aria-labelledby="navbarDropdown">
-    <div class="notification">
-      <div class="notification-header">
-        <h3 class="notification-title">New notification</h3>
-        <i class="fa fa-times notification-close" (click)="closeNotification($event)"></i>
-      </div>
-      <div class="notification-container" *ngFor="let i of combinedReminders">
-        <div class="notification-media">
-          <!-- Check if the reminder is from Healthreminders or reminders list using the source property -->
-          <img *ngIf="i.source === 'healthReminder'" 
-          src="https://i.ibb.co/gZTH51PN/pngtree-pause-vector-icon-png-image-3876297.jpg" 
-          alt="Health Reminder" class="notification-user-avatar">
-          <img *ngIf="i.source === 'reminder'" 
-          src="https://i.ibb.co/27S685Bv/portable-calendar-check-mark-completed-task-event-approval-checklist-done-logo-time-management-line.webp" 
-          alt="Other Reminder" class="notification-user-avatar">
-          <i class="fa fa-thumbs-up notification-reaction"></i>
-        </div>
-        <div class="notification-content">
-          <p class="notification-text">
-            <strong>{{i.typeReminder || i.title}}</strong>
-          </p>
-          <p>{{i.description || i.goal?.title}}</p>
-          <span class="notification-timer">a few seconds ago</span>
-        </div>
-        <span class="notification-status"></span>
-      </div>
-    </div>
-  </div>
-</li>
+          </ul>
 
-
-</ul>
-<a class="menu-trigger">
-<span>Menu</span>
-</a>
+          <a class="menu-trigger">
+            <span>Menu</span>
+          </a>
           <!-- ***** Menu End ***** -->
         </nav>
       </div>

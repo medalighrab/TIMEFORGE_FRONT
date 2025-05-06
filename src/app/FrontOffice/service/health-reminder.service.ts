@@ -17,8 +17,8 @@ export class HealthReminderService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getAll(): Observable<HealthReminder[]> {
+    return this.http.get<HealthReminder[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<HealthReminder> {
@@ -36,7 +36,4 @@ export class HealthReminderService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-
-
-
 }

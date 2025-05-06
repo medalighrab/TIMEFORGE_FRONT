@@ -10,12 +10,13 @@ import { StatsComponent } from './BackOffice/stats/stats.component';
 import { SettingsComponent } from './BackOffice/settings/settings.component';
 import { GoalsComponent } from './FrontOffice/goals/goals.component';
 import { HealthReminderComponent } from './FrontOffice/health-reminder/health-reminder.component';
-import { TaskComponent } from './FrontOffice/task/task.component';
 
 import { ListeComponent } from './BackOffice/tasks/liste/liste.component';
 import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.component';
-import { ChatComponent } from './chat/chat.component';
-import { AdminGoalComponent } from './BackOffice/admin-goal/admin-goal.component';
+import { StatComponent } from './FrontOffice/stat/stat.component';
+import { HistoriqueComponent } from './FrontOffice/historique/historique.component';
+import { LeaderboardComponent } from './BackOffice/leaderboard/leaderboard.component';
+import { GameComponent } from './FrontOffice/game/game.component';
 
 
 
@@ -30,10 +31,13 @@ const routes: Routes = [
       children: [
 
           {path:"", component:HomeFrontComponent},
+          {path:"historique", component:HistoriqueComponent} ,
+          {path:"stat", component:StatComponent} ,
+          {path:"game", component:GameComponent} ,
+
           {path:"task", component:TaskemployeeComponent} ,
-          {
-            path:"chat/:userId",component:ChatComponent
-          },
+
+
     ]
   },
   {
@@ -42,15 +46,11 @@ const routes: Routes = [
     children: [
 
         {path:"stats", component:StatsComponent} ,
-        {path:"tasks", component:ListeComponent} ,
-        { path: "goal", component: AdminGoalComponent },
+        {path:"projets", component:ListeComponent} ,
+        {path:"gamification", component:LeaderboardComponent} ,
 
-       
         {path: "settings" , component:SettingsComponent}
     ]
-  },
-  {
-    path:"TasksList",component:TaskComponent
   },
   {
     path:"register",component:RegisterComponent
@@ -67,7 +67,6 @@ const routes: Routes = [
   {
     path:"health",component:HealthReminderComponent
   },
-  
  
   
 

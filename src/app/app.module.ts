@@ -24,19 +24,22 @@ import { ButtonModule } from 'primeng/button';
 import { GoalsComponent } from './FrontOffice/goals/goals.component';
 import { HealthReminderComponent } from './FrontOffice/health-reminder/health-reminder.component';
 import { HealthReminderService } from './FrontOffice/service/health-reminder.service';
-import { TaskComponent } from './FrontOffice/task/task.component';
 
 import { ListeComponent } from './BackOffice/tasks/liste/liste.component';
 import { TokenInterceptor } from './Interceptor/token-interceptor';
 import { TaskemployeeComponent } from './FrontOffice/taskemployee/taskemployee.component';
-import { ChatComponent } from './chat/chat.component';
-import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-import { AdminGoalComponent } from './BackOffice/admin-goal/admin-goal.component';
+import { NgChartsModule } from 'ng2-charts';
+import { HistoriqueComponent } from './FrontOffice/historique/historique.component';
+import { StatComponent } from './FrontOffice/stat/stat.component';
+import { LeaderboardComponent } from './BackOffice/leaderboard/leaderboard.component';
+import { GameComponent } from './FrontOffice/game/game.component';
+import { GamificationBadgeComponent } from './gamification-badge/gamification-badge.component';
+import { ChatbotComponent } from './FrontOffice/chatbot/chatbot.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:8089 ', options: {} };
 @NgModule({
   declarations: [
     AppComponent,
+    ChatbotComponent,
     AllTemplateBackComponent,
     FooterBackComponent,
     NavbarBackComponent,
@@ -54,14 +57,14 @@ const config: SocketIoConfig = { url: 'http://localhost:8089 ', options: {} };
   
     GoalsComponent,
     HealthReminderComponent,
-    TaskComponent,
 
     ListeComponent,
      TaskemployeeComponent,
-     ChatComponent,
-     AdminGoalComponent,
-     
-     
+     HistoriqueComponent,
+     StatComponent,
+     LeaderboardComponent,
+     GameComponent,
+     GamificationBadgeComponent,
 
   ],
   imports: [
@@ -72,10 +75,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8089 ', options: {} };
     FormsModule,
     ReactiveFormsModule,
     //DrawerModule, 
-     
     ButtonModule,
-    SocketIoModule.forRoot(config), 
-    
+    NgChartsModule
   ],
   providers: [HealthReminderService, 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

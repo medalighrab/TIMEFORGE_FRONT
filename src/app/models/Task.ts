@@ -7,6 +7,7 @@ export interface Task {
     priority: number;
     startDate: Date;
     employee11:any[];
+    isdeleted:boolean
     deadline: Date;
   }
   

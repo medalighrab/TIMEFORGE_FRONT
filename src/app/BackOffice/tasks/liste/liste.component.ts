@@ -5,6 +5,8 @@ import { Project } from 'src/app/models/Projet';
 import { Task } from 'src/app/models/Task';
 import { UsersService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-liste',
@@ -82,6 +84,24 @@ export class ListeComponent implements OnInit {
       this.taskService.addTask(task, projectId,this.selectedEmployeeId!,this.user.idUser).subscribe(() => {
         this.loadProjects();
         this.toggleTaskForm(projectId);
+          // Show SweetAlert2 success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Task Added Successfully',
+            text: 'The task has been added successfully!',
+            timer: 2000, 
+            showConfirmButton: false
+          });
+      },(error:HttpErrorResponse)=>{
+        console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.error,
+            timer: 2000, 
+            showConfirmButton: false
+          });
+        
       });
     }
   }
