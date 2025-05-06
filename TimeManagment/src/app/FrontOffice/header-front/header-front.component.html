@@ -1,0 +1,51 @@
+<!-- ***** Header Area Start ***** -->
+
+<header class="header-area header-sticky">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a [routerLink]="['/']" class="logo">
+            <h1>Timeforge</h1>
+          </a>
+          <!-- ***** Logo End ***** -->
+
+          <!-- ***** Menu Start ***** -->
+          <ul class="navbar-nav">
+
+            <li><a [routerLink]="['/calendar']">Calendar</a></li>
+            <li><a [routerLink]="['/time-trackers']">Time Tracker</a></li>
+            <li><a [routerLink]="['/time-techniques']">Time Technique</a></li>
+            <li><a [routerLink]="['/smart-planner']">🧠 Planning Intelligent</a></li>
+
+            <li><a [routerLink]="['/recommendation']">🧠 Recommendation</a></li>
+
+            <li *ngIf="!isLogged"><a [routerLink]="['/login']" routerLinkActive="active">Login</a></li>
+            <li *ngIf="isLogged"><a (click)="logout()" role="button">Logout</a></li>
+            <app-notification-bell></app-notification-bell>
+
+            <li>
+              <div style="margin-top: 15px;">
+                <a class="nav-link" [routerLink]="['/chat', userId]">
+                  <div class="bell-container">
+                    <i class="bi bi-messenger"></i>
+                  </div>
+                </a>
+              </div>
+            </li>
+
+            <!-- Reminder dropdown -->
+            
+
+          </ul>
+          <a class="menu-trigger">
+            <span>Menu</span>
+          </a>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ***** Header Area End ***** -->

@@ -1,0 +1,120 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "TimeManagment": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/time-managment",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "src/assets/BackOffice/vendor/fontawesome-free/css/all.min.css",
+              "src/assets/BackOffice/assets/css/sb-admin-2.min.css",
+              "src/assets/FrontOffice/assets/css/animate.css",
+              "src/assets/FrontOffice/assets/css/fontawesome.css",
+              "src/assets/FrontOffice/assets/css/templatemo-villa-agency.css",
+              "src/assets/BackOffice/assets/css/sb-admin-2.min.css"
+              
+              
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/FrontOffice/vendor/jquery/jquery.min.js",
+              "src/assets/FrontOffice/vendor/bootstrap/js/bootstrap.min.js",
+              "src/assets/FrontOffice/assets/js/isotope.min.js",
+              "src/assets/FrontOffice/assets/js/owl-carousel.js",
+              "src/assets/FrontOffice/assets/js/counter.js",
+              "src/assets/FrontOffice/assets/js/custom.js",
+              
+              "src/assets/BackOffice/vendor/jquery-easing/jquery.easing.min.js",
+              "src/assets/BackOffice/assets/js/sb-admin-2.min.js",
+              "src/assets/BackOffice/vendor/chart.js/Chart.min.js",
+              "src/assets/BackOffice/assets/js/demo/chart-area-demo.js",
+              "src/assets/BackOffice/assets/js/demo/chart-pie-demo.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "TimeManagment:build:production"
+            },
+            "development": {
+              "browserTarget": "TimeManagment:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "TimeManagment:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  }
+}

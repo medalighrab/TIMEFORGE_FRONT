@@ -1,0 +1,13 @@
+<div class="notification-bell" (click)="toggleDropdown()">
+    <i class="fa fa-bell"></i>
+    <span class="badge" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
+  
+    <div class="dropdown" *ngIf="dropdownVisible">
+      <div *ngFor="let notif of notifications" class="notif-item">
+        <strong>{{ notif.title }}</strong><br />
+        <small>{{ notif.body }}</small><br />
+        <small>{{ notif.timestamp | date:'shortTime' }}</small>
+      </div>
+    </div>
+  </div>
+  

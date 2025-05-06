@@ -1,0 +1,22 @@
+<app-all-template-front></app-all-template-front>
+
+<div class="smart-planner-wrapper">
+  <h2 class="section-title">🧠 Mon Planning Intelligent</h2>
+
+  <button (click)="generate()" class="generate-button" [disabled]="loading">
+    {{ loading ? 'Génération...' : '✨ Générer mon planning intelligent' }}
+  </button>
+
+  <div *ngIf="sessionPlans.length > 0" class="session-plan-list">
+    <div *ngFor="let plan of sessionPlans" class="session-card">
+      <h3>{{ plan.sessionTitle }}</h3>
+      <p><strong>Technique :</strong> {{ plan.techniqueName }}</p>
+      <p><strong>Date :</strong> {{ plan.date }}</p>
+      <p><strong>Heure :</strong> {{ plan.startTime }} → {{ plan.endTime }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && sessionPlans.length === 0" class="no-data">
+    🧹 Aucune session planifiée pour le moment.
+  </div>
+</div>

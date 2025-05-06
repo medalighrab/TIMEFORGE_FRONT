@@ -1,0 +1,46 @@
+<app-header-front></app-header-front>
+<div class="techniques-container">
+    <h2>🧠 Techniques de Gestion du Temps</h2>
+  
+    <!-- Formulaire -->
+    <form (ngSubmit)="save()" class="techniques-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom de la Technique :</label>
+          <input [(ngModel)]="form.name" name="name" required placeholder="Ex: Méthode Pomodoro" />
+        </div>
+  
+        <div class="form-group">
+          <label>Description :</label>
+          <input [(ngModel)]="form.description" name="description" required placeholder="Ex: Sessions de 25 minutes" />
+        </div>
+      </div>
+  
+      <div class="form-buttons">
+        <button type="submit" class="save-button">{{ editingId ? '✅ Modifier' : '➕ Ajouter' }}</button>
+        <button type="button" (click)="cancel()" class="cancel-button" *ngIf="editingId">❌ Annuler</button>
+      </div>
+    </form>
+  
+    <hr />
+  
+    <!-- Liste des Techniques -->
+    <div class="techniques-grid" *ngIf="techniques.length > 0; else noData">
+      <div *ngFor="let technique of techniques" class="technique-card">
+        <div class="technique-header">
+          <h3>{{ technique.name }}</h3>
+        </div>
+        <p><strong>Description :</strong> {{ technique.description }}</p>
+  
+        <div class="card-actions">
+          <button (click)="edit(technique)" class="edit-button">✏️ Modifier</button>
+          <button (click)="delete(technique.id!)" class="delete-button">🗑️ Supprimer</button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noData>
+      <p class="no-data">⚠️ Aucune technique enregistrée.</p>
+    </ng-template>
+  </div>
+  

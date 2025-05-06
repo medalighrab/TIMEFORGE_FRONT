@@ -120,11 +120,6 @@ export class StatComponent implements OnInit,AfterViewInit,OnChanges {
     }
   }
 
-
-
-
-
- 
   getchart(){
   
     this.taskService.getTaskestimation(this.user.idUser).subscribe(data => {

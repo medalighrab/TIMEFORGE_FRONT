@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from "jwt-decode";
 import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+
 export interface RegisterRequest {
   username: string;
   mail: string;
@@ -65,4 +67,13 @@ export class AuthService {
       return [];
     }
   }
+
+  getUserIdFromtoken (token: string): Observable<any> {
+    const url = `http://localhost:8089/users/api/user`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+   
+ 
+    return this.http.get<any>(url, { headers });
+  } 
 }

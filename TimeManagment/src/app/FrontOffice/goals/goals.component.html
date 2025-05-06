@@ -1,0 +1,53 @@
+<app-header-front></app-header-front>
+
+<!-- Conteneur principal -->
+<div class="task-container">
+  <!-- Boucle sur les tâches -->
+  <div *ngFor="let task of goals" class="task">
+    <details open>
+      <summary>{{ task.name }}</summary>
+
+      <!-- Boucle sur les objectifs (goals) -->
+      <div *ngFor="let goal of task.goals">
+        <details open>
+          <summary>
+            {{ goal.title }}
+            <span *ngIf="goal.starDate && goal.endDate" class="duration">
+              {{ calculateDuration(goal.starDate, goal.endDate) }}
+            </span>
+            <div class="action-buttons">
+              <!-- Supprimer un goal -->
+              <button (click)="deleteGoal(goal.id); $event.stopPropagation()" class="delete-button">×</button>
+
+              <!-- Toggle chronique -->
+              <label class="toggle-switch">
+                <input type="checkbox" [checked]="goal.chronicActive" (change)="toggleChronic(goal)">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </summary>
+
+          <!-- Détails de l'objectif -->
+          <ul>
+            <li><span>Description:</span> {{ goal.description }}</li>
+            <li><span>Date de début:</span> {{ formatDate(goal.starDate) }}</li>
+            <li><span>Date de fin:</span> {{ formatDate(goal.endDate) }}</li>
+
+            <!-- Bouton traduction + Affichage résultat -->
+            <li>
+              <button class="btn btn-sm btn-outline-primary ms-2" (click)="translateGoalDescription(goal)">
+                Traduire la description
+              </button>
+            </li>
+
+            <!-- Affichage du texte traduit si présent -->
+            <li *ngIf="translatedDescriptions[goal.id]">
+              <strong>Description traduite :</strong><br>
+              <em>{{ translatedDescriptions[goal.id] }}</em>
+            </li>
+          </ul>
+        </details>
+      </div>
+    </details>
+  </div>
+</div>

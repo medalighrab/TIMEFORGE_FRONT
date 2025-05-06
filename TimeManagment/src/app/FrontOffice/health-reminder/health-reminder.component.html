@@ -1,0 +1,44 @@
+<app-header-front></app-header-front>
+
+<div class="container">
+  <h2>📌 Health Reminders</h2>
+  
+  <!-- Formulaire d'ajout -->
+  <div class="form-container">
+    <input [(ngModel)]="newReminder.id" placeholder="ID (optionnel)" class="form-input">
+    
+    <!-- Sélecteur pour TypeReminder -->
+    <select [(ngModel)]="newReminder.typeReminder" name="typeReminder" class="form-input">
+      <option value="HELTHBREAKS">Health Breaks</option>
+      <option value="RELAXATIONSEXECICES">Relaxation Exercises</option>
+      <option value="NUTRITIONSTIPS">Nutrition Tips</option>
+    </select>
+
+    <input [(ngModel)]="newReminder.notifications" placeholder="Notifications" class="form-input">
+    
+    <!-- Bouton Ajouter -->
+    <button (click)="addReminder()" class="btn-add">➕ Ajouter</button>
+  </div>
+
+  <!-- Liste des rappels de santé -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type de Rappel</th>
+        <th>Notifications</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reminder of healthReminders">
+        <td>{{ reminder.id }}</td>
+        <td>{{ reminder.typeReminder }}</td>
+        <td>{{ reminder.notifications }}</td>
+        <td>
+          <button *ngIf="reminder.id" (click)="deleteReminder(reminder.id)" class="btn-delete">❌ Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
